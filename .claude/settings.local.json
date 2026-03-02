@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(# Check if cairo is available anywhere on the system find /usr/local /opt -name \"\"libcairo*\"\" ; find /Library -name \"\"libcairo*\"\" ; mdfind -name \"\"libcairo\"\")",
+      "Bash(DYLD_LIBRARY_PATH=\"/Users/cmccaffery/Library/Application Support/Claude/Claude Extensions/ant.dir.gh.silverstein.pdf-filler-simple/node_modules/canvas/build/Release/\" python3:*)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(git fetch origin)",
+      "Bash(git add .gitignore .claude/)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
+    ]
+  }
+}
