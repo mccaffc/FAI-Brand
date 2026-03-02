@@ -8,7 +8,9 @@
       "Bash(git fetch origin)",
       "Bash(git add .gitignore .claude/)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(export PATH=\"/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH\")",
+      "Bash(git add .claude/settings.local.json)"
     ]
   }
 }
