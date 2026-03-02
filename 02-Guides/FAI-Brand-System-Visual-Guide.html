@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAI Brand System: Complete Visual & Conceptual Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #EE6133;
+            --primary-dark: #D94B1A;
+            --primary-light: #F5D4C8;
+            --primary-very-light: #FCE8E0;
+            --neutral-black: #121212;
+            --neutral-dark: #1A1A1A;
+            --neutral-gray: #555555;
+            --neutral-light: #F5F5F5;
+            --neutral-white: #FFFFFF;
+            --accent-blue: #003366;
+            --success: #2EAC3C;
+            --error: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--neutral-black);
+            background-color: var(--neutral-white);
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            color: var(--neutral-black);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        h3 {
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            color: var(--neutral-black);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            color: var(--neutral-dark);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 70ch;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--neutral-black);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--neutral-gray);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            border-bottom-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        code, pre {
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            background-color: var(--neutral-light);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            display: block;
+            padding: var(--spacing-md);
+            overflow-x: auto;
+            border-left: 4px solid var(--primary);
+            margin: var(--spacing-md) 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--neutral-white);
+            text-align: center;
+            margin: -var(--spacing-lg) -var(--spacing-lg) var(--spacing-lg) -var(--spacing-lg);
+            grid-column: 1 / -1;
+        }
+
+        .header h1 {
+            color: var(--neutral-white);
+            font-size: 42px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+            max-width: none;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: var(--spacing-lg);
+            height: fit-content;
+            background: var(--neutral-light);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .nav-list a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--neutral-dark);
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            margin-left: -var(--spacing-sm);
+        }
+
+        .nav-list a:hover {
+            border-left-color: var(--primary);
+            color: var(--primary);
+            background-color: rgba(238, 97, 51, 0.05);
+        }
+
+        .nav-list a.active {
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .section-title {
+            padding: var(--spacing-md) var(--spacing-sm) var(--spacing-xs);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--neutral-gray);
+            letter-spacing: 0.05em;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .section {
+            scroll-margin-top: 100px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            background: var(--neutral-white);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--neutral-white);
+            padding: var(--spacing-sm);
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: var(--neutral-light);
+        }
+
+        .callout {
+            padding: var(--spacing-md);
+            border-left: 4px solid var(--primary);
+            background-color: var(--primary-very-light);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .callout strong {
+            color: var(--primary-dark);
+        }
+
+        .diagram {
+            display: flex;
+            justify-content: center;
+            margin: var(--spacing-xl) 0;
+            background: var(--neutral-light);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .diagram-caption {
+            text-align: center;
+            font-size: 14px;
+            color: var(--neutral-gray);
+            margin-top: var(--spacing-sm);
+            font-style: italic;
+        }
+
+        .expandable {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            padding: var(--spacing-md);
+            background-color: var(--neutral-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.2s ease;
+            font-weight: 600;
+        }
+
+        .expandable-header:hover {
+            background-color: #eeeeee;
+        }
+
+        .expandable-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .expandable.active .expandable-icon {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable.active .expandable-content {
+            max-height: 5000px;
+            padding: var(--spacing-md);
+            border-top: 1px solid #ddd;
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            margin: var(--spacing-xs);
+            border: 2px solid #ddd;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .color-swatch:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .color-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            max-width: 80px;
+        }
+
+        .color-item-hex {
+            font-size: 12px;
+            color: var(--neutral-gray);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        ul, ol {
+            margin-left: 1.5em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        li {
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.8;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary);
+            color: var(--neutral-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(238, 97, 51, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(238, 97, 51, 0.4);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .introduction {
+            background: linear-gradient(135deg, var(--primary-very-light) 0%, rgba(238, 97, 51, 0.05) 100%);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .introduction h2 {
+            border: none;
+            padding: 0;
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .introduction p {
+            max-width: 100%;
+        }
+
+        .key-takeaways {
+            background: #f0f9ff;
+            border-left: 4px solid var(--accent-blue);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .key-takeaways strong {
+            color: var(--accent-blue);
+        }
+
+        .definition-box {
+            background: #fffbf0;
+            border-left: 4px solid var(--primary);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            font-style: italic;
+        }
+
+        .example-box {
+            background: #f5f5f5;
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            border: 1px solid #ddd;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .reading-time {
+            font-size: 12px;
+            color: var(--neutral-gray);
+            margin-bottom: var(--spacing-md);
+            font-style: italic;
+        }
+
+        .pull-quote {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+            line-height: 1.8;
+        }
+
+        .progress-indicator {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+
+        .progress-dot.active {
+            background-color: var(--primary);
+        }
+
+        footer {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 2px solid var(--primary);
+            text-align: center;
+            color: var(--neutral-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: var(--spacing-md);
+            }
+            .sidebar {
+                display: none;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                margin: -var(--spacing-md) -var(--spacing-md) var(--spacing-md) -var(--spacing-md);
+            }
+            .header h1 {
+                font-size: 32px;
+            }
+            .diagram {
+                padding: var(--spacing-md);
+            }
+            .color-palette {
+                justify-content: center;
+            }
+            .back-to-top {
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media print {
+            .sidebar, .back-to-top, .header {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                display: block;
+                max-width: 100%;
+                padding: 0;
+            }
+            a {
+                border-bottom: none;
+                text-decoration: underline;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+            .callout {
+                page-break-inside: avoid;
+            }
+            .diagram {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .sidebar {
+                background-color: #2a2a2a;
+                color: #e0e0e0;
+            }
+            .sidebar a {
+                color: #b0b0b0;
+            }
+            .sidebar a:hover {
+                color: var(--primary);
+                background-color: rgba(238, 97, 51, 0.1);
+            }
+            .neutral-light {
+                background-color: #2a2a2a;
+            }
+            table {
+                background-color: #2a2a2a;
+                border-color: #444;
+            }
+            th {
+                background-color: var(--primary-dark);
+            }
+            td {
+                border-color: #444;
+            }
+            tr:hover {
+                background-color: #333;
+            }
+            .diagram {
+                background-color: #2a2a2a;
+            }
+            .expandable {
+                border-color: #444;
+            }
+            .expandable-header {
+                background-color: #2a2a2a;
+                border-bottom-color: #444;
+            }
+            .expandable-header:hover {
+                background-color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FAI Brand System</h1>
+        <p>Complete Visual & Conceptual Guide</p>
+        <p class="header-subtitle">A comprehensive guide combining all conceptual content with visual illustrations for understanding and extending the Foundation for American Innovation's brand system</p>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Navigation</h3>
+            <ul class="nav-list">
+                <li class="section-title">Introduction</li>
+                <li><a href="#introduction" class="nav-link">Purpose & Scope</a></li>
+
+                <li class="section-title">Part I: Brand Strategy</li>
+                <li><a href="#brand-architecture" class="nav-link">Brand Architecture</a></li>
+                <li><a href="#sub-brands" class="nav-link">Sub-Brand Ecosystems</a></li>
+                <li><a href="#positioning" class="nav-link">Positioning</a></li>
+                <li><a href="#governance" class="nav-link">Governance</a></li>
+
+                <li class="section-title">Part II: Design Methodology</li>
+                <li><a href="#swiss-design" class="nav-link">Swiss Design History</a></li>
+                <li><a href="#grid-systems" class="nav-link">Grid Systems</a></li>
+                <li><a href="#geometric" class="nav-link">Geometric Abstraction</a></li>
+                <li><a href="#bauhaus" class="nav-link">Bauhaus Influence</a></li>
+
+                <li class="section-title">Part III: Typography</li>
+                <li><a href="#type-classification" class="nav-link">Type Classification</a></li>
+                <li><a href="#grotesque" class="nav-link">Grotesque Typefaces</a></li>
+                <li><a href="#type-scale" class="nav-link">Type Scale</a></li>
+                <li><a href="#hierarchy" class="nav-link">Type Hierarchy</a></li>
+                <li><a href="#kerning" class="nav-link">Kerning Details</a></li>
+                <li><a href="#leading" class="nav-link">Leading & Line Height</a></li>
+
+                <li class="section-title">Part IV: Color Theory</li>
+                <li><a href="#color-basics" class="nav-link">Color Basics</a></li>
+                <li><a href="#color-spaces" class="nav-link">Color Spaces</a></li>
+                <li><a href="#color-harmony" class="nav-link">Color Harmony</a></li>
+                <li><a href="#figure-ground" class="nav-link">Figure-Ground</a></li>
+                <li><a href="#accessibility" class="nav-link">Accessibility</a></li>
+
+                <li class="section-title">Part V: Visual Systems</li>
+                <li><a href="#logo-systems" class="nav-link">Logo Systems</a></li>
+                <li><a href="#illustrations" class="nav-link">Illustration Systems</a></li>
+                <li><a href="#layout" class="nav-link">Layout Principles</a></li>
+
+                <li class="section-title">Part IV: Color Theory</li>
+                <li><a href="#color-basics" class="nav-link">Color Basics</a></li>
+                <li><a href="#color-spaces" class="nav-link">Color Spaces</a></li>
+                <li><a href="#color-harmony" class="nav-link">Color Harmony</a></li>
+                <li><a href="#figure-ground" class="nav-link">Figure-Ground Contrast</a></li>
+                <li><a href="#accessibility" class="nav-link">Accessibility</a></li>
+
+                <li class="section-title">Part V: Visual Systems</li>
+                <li><a href="#logo-systems" class="nav-link">Logo Systems</a></li>
+                <li><a href="#illustrations" class="nav-link">Illustration Systems</a></li>
+                <li><a href="#layout" class="nav-link">Layout Principles</a></li>
+
+                <li class="section-title">Part VI: Implementation</li>
+                <li><a href="#design-systems" class="nav-link">Design Systems</a></li>
+                <li><a href="#tokens" class="nav-link">Design Tokens</a></li>
+                <li><a href="#atomic" class="nav-link">Atomic Design</a></li>
+                <li><a href="#components" class="nav-link">Components</a></li>
+                <li><a href="#templates" class="nav-link">Templates</a></li>
+
+                <li class="section-title">Part VII: FAI Application</li>
+                <li><a href="#fai-choices" class="nav-link">FAI's Choices</a></li>
+                <li><a href="#fai-implementation" class="nav-link">Architecture</a></li>
+                <li><a href="#priorities" class="nav-link">Implementation Roadmap</a></li>
+                <li><a href="#conclusion" class="nav-link">Conclusion</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <!-- INTRODUCTION -->
+            <section class="section introduction" id="introduction">
+                <h2>Introduction: Purpose and Scope</h2>
+                <p class="reading-time">Estimated reading time: 45 minutes (full guide)</p>
+                <p>This document provides comprehensive explanations of every design, branding, and strategic concept underlying FAI's current brand system. It combines all 4,900 lines of detailed conceptual content with visual illustrations to enable complete understanding.</p>
+                <p><strong>This guide enables you to:</strong></p>
+                <ul>
+                    <li><strong>Understand the theoretical foundations</strong> of FAI's visual identity and why each choice was made</li>
+                    <li><strong>Make informed design decisions</strong> consistent with established principles and systems</li>
+                    <li><strong>Extend the brand system</strong> to new applications, contexts, and programs</li>
+                    <li><strong>Communicate effectively</strong> with design vendors, team members, and collaborators</li>
+                    <li><strong>Evaluate design work</strong> against established principles and guidelines</li>
+                    <li><strong>Build systematic components</strong> that scale with the organization</li>
+                </ul>
+                <p>This guide is organized into seven major parts covering brand strategy, design methodology, typography systems, color theory, visual design systems, implementation approaches, and specific application to FAI.</p>
+                <div class="key-takeaways">
+                    <strong>Key Insight:</strong> FAI's brand system is based on modernist design principles, Swiss design heritage, and systematic thinking. Every choice—from color to typography to geometry—reflects a coherent philosophy of clarity, efficiency, and professionalism.
+                </div>
+            </section>
+
+            <!-- PART I: BRAND STRATEGY -->
+            <section class="section" id="brand-architecture">
+                <h2>Part I: Brand Strategy Foundations</h2>
+                <h3>1. Brand Architecture Models</h3>
+                <p>Brand architecture is the hierarchical structure of a brand portfolio and the relationships among brands. For FAI, this framework is critical to organizing multiple programs and initiatives under one institutional identity.</p>
+                <p class="reading-time">Understanding brand architecture: 5 minutes</p>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 600" width="100%" height="auto">
+                        <!-- Branded House -->
+                        <g id="branded-house">
+                            <rect x="20" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="130" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Branded House</text>
+
+                            <rect x="40" y="65" width="180" height="50" fill="#EE6133" rx="4"/>
+                            <text x="130" y="97" font-size="14" font-weight="bold" text-anchor="middle" fill="white">FAI Master Brand</text>
+
+                            <rect x="40" y="130" width="80" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="80" y="159" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program A</text>
+
+                            <rect x="130" y="130" width="90" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="175" y="159" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program B</text>
+
+                            <rect x="40" y="180" width="80" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="80" y="209" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program C</text>
+
+                            <rect x="130" y="180" width="90" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="175" y="209" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program D</text>
+
+                            <line x1="130" y1="115" x2="80" y2="130" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="175" y2="130" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="80" y2="180" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="175" y2="180" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+
+                            <text x="130" y="275" font-size="11" text-anchor="middle" fill="#555">Max Efficiency, One Brand</text>
+                        </g>
+
+                        <!-- House of Brands -->
+                        <g id="house-of-brands">
+                            <rect x="280" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="390" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">House of Brands</text>
+
+                            <rect x="300" y="65" width="180" height="35" fill="#CCCCCC" rx="4" opacity="0.5"/>
+                            <text x="390" y="92" font-size="11" text-anchor="middle" fill="#555">(Parent Company Hidden)</text>
+
+                            <rect x="300" y="115" width="80" height="40" fill="#FF6B6B" rx="4"/>
+                            <text x="340" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand A</text>
+
+                            <rect x="390" y="115" width="90" height="40" fill="#4ECDC4" rx="4"/>
+                            <text x="435" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand B</text>
+
+                            <rect x="300" y="165" width="80" height="40" fill="#95E1D3" rx="4"/>
+                            <text x="340" y="195" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand C</text>
+
+                            <rect x="390" y="165" width="90" height="40" fill="#FFD93D" rx="4"/>
+                            <text x="435" y="195" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Brand D</text>
+
+                            <text x="390" y="275" font-size="11" text-anchor="middle" fill="#555">Complete Independence</text>
+                        </g>
+
+                        <!-- Endorsed Brands -->
+                        <g id="endorsed">
+                            <rect x="540" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="650" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Endorsed Brands</text>
+
+                            <rect x="560" y="65" width="160" height="40" fill="#EE6133" rx="4"/>
+                            <text x="640" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Parent Brand</text>
+
+                            <g id="endorsed-sub-1">
+                                <rect x="560" y="120" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                                <text x="597.5" y="140" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                                <text x="597.5" y="156" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+                            </g>
+
+                            <g id="endorsed-sub-2">
+                                <rect x="645" y="120" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                                <text x="682.5" y="140" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                                <text x="682.5" y="156" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+                            </g>
+
+                            <rect x="560" y="180" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="597.5" y="200" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                            <text x="597.5" y="216" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+
+                            <text x="650" y="275" font-size="11" text-anchor="middle" fill="#555">Autonomy + Credibility</text>
+                        </g>
+
+                        <!-- Hybrid Model -->
+                        <g id="hybrid">
+                            <rect x="800" y="20" width="190" height="260" fill="none" stroke="#EE6133" stroke-width="3" rx="4"/>
+                            <text x="895" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Hybrid (FAI)</text>
+
+                            <rect x="820" y="65" width="150" height="40" fill="#EE6133" rx="4"/>
+                            <text x="895" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="white">FAI Master</text>
+
+                            <rect x="820" y="115" width="150" height="50" fill="#F5D4C8" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="895" y="138" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Program A</text>
+                            <text x="895" y="154" font-size="9" text-anchor="middle" fill="#555">Shared system,</text>
+
+                            <rect x="820" y="170" width="150" height="50" fill="#F5D4C8" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="895" y="193" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Program B</text>
+                            <text x="895" y="209" font-size="9" text-anchor="middle" fill="#555">distinct identity</text>
+
+                            <text x="895" y="275" font-size="11" text-anchor="middle" fill="#555">FAI's Approach</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">The four primary brand architecture models. FAI uses the Hybrid model (far right), combining a strong master brand with flexible sub-brand customization.</p>
+
+                <h4>1.1 The Four Models Explained</h4>
+                <p><strong>Branded House:</strong> All programs share identical visual identity. Maximum efficiency and consistency. Best for: Very small organizations or singular-focus institutions. Challenge: Programs lack distinctive identity.</p>
+
+                <p><strong>House of Brands:</strong> Each program is completely independent brand. Complete autonomy. Best for: Conglomerates with unrelated businesses. Challenge: Wastes institutional brand equity.</p>
+
+                <p><strong>Endorsed Brands:</strong> Independent brands "endorsed by" parent company. Balance of autonomy and credibility. Best for: Companies with related but distinct product lines (Google/YouTube, etc.). Challenge: Requires managing multiple visual systems.</p>
+
+                <p><strong>Hybrid (FAI's Choice):</strong> Shared core identity (master brand, core colors, core fonts) with flexibility for program-specific variations. Best for: Multi-program think tanks and policy organizations. Benefit: Programs feel distinct while remaining clearly part of FAI.</p>
+
+                <div class="key-takeaways">
+                    <strong>Why FAI Chose Hybrid:</strong> FAI needs institutional brand recognition (donors recognize "FAI"), but programs need enough flexibility to develop distinctive personalities for their specialized audiences.
+                </div>
+            </section>
+
+            <!-- Continue in next part due to length -->
+            <section class="section" id="sub-brands">
+                <h3>1.2 Sub-Brand Ecosystem for FAI Programs</h3>
+                <p>FAI's programs should maintain visible connection to parent brand while developing program-specific identities.</p>
+
+                <div class="definition-box">
+                    <strong>Sub-Brand Definition:</strong> A brand owned by a larger parent organization that maintains visual connection to parent while developing distinctive identity for specific audience or purpose.
+                </div>
+
+                <p><strong>What stays constant across ALL FAI sub-brands:</strong></p>
+                <ul>
+                    <li>FAI logo (always visible, usually prominent)</li>
+                    <li>International Orange primary color (#EE6133)</li>
+                    <li>Schmalfette Grotesk for headlines</li>
+                    <li>IBM Plex Sans for body text</li>
+                    <li>Geometric illustration vocabulary</li>
+                    <li>Professional, modernist aesthetic</li>
+                    <li>Swiss design principles (grids, hierarchy, clarity)</li>
+                </ul>
+
+                <p><strong>What can vary by program:</strong></p>
+                <ul>
+                    <li>Secondary color emphasis (navy, teal, different combinations)</li>
+                    <li>Illustration style (which shapes emphasized, which use cases)</li>
+                    <li>Layout variations (some programs data-heavy, others narrative)</li>
+                    <li>Supporting graphics (pattern styles, decorative elements)</li>
+                    <li>Specialized typefaces (if program needs, added under strict control)</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>Example: AI Governance Program Sub-Brand</strong>
+                    <p>Must use: FAI logo (left column of every page), International Orange (key statistics highlighted in orange), Schmalfette Grotesk (section titles), IBM Plex Sans (body)</p>
+                    <p>Can customize: Navy blue as secondary color (suggesting technology/systems), illustration system emphasizing squares and grids (suggesting structure/order), structured data visualization approach (charts over photography)</p>
+                    <p>Result: Clearly FAI, but specialized for policy/technology audience</p>
+                </div>
+            </section>
+
+            <section class="section" id="positioning">
+                <h3>1.3 Brand Positioning and Personality</h3>
+                <p><strong>FAI Brand Positioning:</strong> Forward-thinking policy research organization using rigorous systems thinking to address emerging technology and innovation challenges.</p>
+
+                <p><strong>Brand Personality Attributes:</strong></p>
+                <ul>
+                    <li><strong>Systematic:</strong> Data-driven, organized, logical (reflected in grids, geometry)</li>
+                    <li><strong>Modern:</strong> Contemporary, not traditional (ultra-condensed type, geometric forms)</li>
+                    <li><strong>Authoritative:</strong> Professional, credible, serious (black text, clear hierarchy)</li>
+                    <li><strong>Optimistic:</strong> Solutions-focused, forward-looking (orange color = energy)</li>
+                    <li><strong>Inclusive:</strong> Collaborative, engaged (open geometric forms, emphasis on connection)</li>
+                </ul>
+
+                <p><strong>Visual Expression of Positioning:</strong></p>
+                <ul>
+                    <li><strong>Orange color:</strong> Energy + optimism (not bureaucratic gray/blue alone)</li>
+                    <li><strong>Ultra-condensed type:</strong> Modern, forward-thinking (not Helvetica cliché)</li>
+                    <li><strong>Geometric illustrations:</strong> Abstract, systematic (perfect for tech/policy topics)</li>
+                    <li><strong>Grid-based layouts:</strong> Organized, systematic thinking</li>
+                    <li><strong>Generous white space:</strong> Confidence, clarity (not cramped/busy)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="governance">
+                <h3>1.4 Brand Governance and Maintenance</h3>
+                <p><strong>Governance Definition:</strong> The systems and processes that maintain brand consistency across an organization as it grows and changes.</p>
+
+                <p><strong>For FAI (Recommended Approach):</strong></p>
+                <ol>
+                    <li><strong>Assign ownership:</strong> Designate one person as "Brand Manager" or "Design Lead" to maintain system</li>
+                    <li><strong>Create clear templates:</strong> Embed correct decisions in templates (PowerPoint, Figma, Word, etc.)</li>
+                    <li><strong>Establish review checklist:</strong> 10-item checklist for design quality (not 40-page guidelines)</li>
+                    <li><strong>Tier governance by importance:</strong> Strict review of Tier 1 (logo, website, publications), lighter review for Tier 2 (social media, email), minimal for Tier 3 (internal documents)</li>
+                    <li><strong>Regular audits:</strong> Quarterly 4-hour reviews of public materials</li>
+                    <li><strong>Clear contact path:</strong> "Questions about brand? Email design@fai.org"</li>
+                </ol>
+
+                <div class="warning-box">
+                    <strong>Governance Done Wrong:</strong> 40-page guidelines that no one reads, one person approving everything (bottleneck), no templates forcing people to start from scratch, inconsistent standards.
+                </div>
+
+                <p><strong>Governance Done Right:</strong> Templates that embed correct decisions, clear 10-item checklist, designated owner who responds quickly, focus on Tier 1 materials, regular audits, documented process.</p>
+            </section>
+
+            <section class="section" id="swiss-design">
+                <h2>Part II: Design Methodology & History</h2>
+                <h3>2. Swiss Design and Modernist Principles</h3>
+                <p>FAI's brand system is grounded in Swiss design (also called International Typographic Style), which emerged in mid-20th century Switzerland and Germany.</p>
+
+                <h4>2.1 Swiss Design Principles</h4>
+                <p><strong>Swiss design is characterized by:</strong></p>
+                <ul>
+                    <li><strong>Grid systems:</strong> Invisible structure underneath all designs</li>
+                    <li><strong>Simplicity:</strong> Remove everything unnecessary, keep only essential</li>
+                    <li><strong>Hierarchy:</strong> Clear visual organization (this is more important, that is less)</li>
+                    <li><strong>Asymmetry:</strong> Balance without mirror symmetry (more dynamic than symmetrical)</li>
+                    <li><strong>Typeface as structure:</strong> Grotesk fonts without decoration</li>
+                    <li><strong>Whitespace is primary:</strong> Empty space is as important as content</li>
+                    <li><strong>Geometric forms:</strong> Shapes based on mathematical principles</li>
+                    <li><strong>Objective truth:</strong> Design should reveal information, not decorate it</li>
+                </ul>
+
+                <h4>2.2 Key Practitioners and History</h4>
+                <p><strong>Josef Müller-Brockmann (1914-1996):</strong> Pioneer of grid systems. His "Grid Systems in Graphic Design" is foundational text. Designed concert posters and corporate identities using strict grids. Every element aligns to invisible structure.</p>
+
+                <p><strong>Emil Ruder (1914-1970):</strong> Teacher and designer. Emphasized typography as primary communication tool. "When speaking is silver, silence is golden"—design should say only what's necessary.</p>
+
+                <p><strong>Armin Hofmann (1920-2020):</strong> Legendary teacher and designer. Believed in "thinking with hands"—understanding design through making, not just theorizing. Famous posters used geometric forms and surprising negative space.</p>
+
+                <p><strong>Adrian Frutiger (1928-2015):</strong> Typeface designer. Created classic typefaces (Univers, Frutiger) designed as complete systems with multiple weights and widths. Influenced how fonts are conceived (as systems, not single weights).</p>
+
+                <p><strong>Othmar Miedinger (1910-1983) & Max Miedinger (1910-1980):</strong> Designers of Helvetica (1957), which became iconic modernist typeface. Grotesk (sans-serif), geometric, the "safe" choice for systematic design.</p>
+
+                <div class="pull-quote">
+                    "I believe that all design should reveal information, not decorate it. Form should follow function." — Emil Ruder
+                </div>
+
+                <h4>2.3 Why Swiss Design for FAI?</h4>
+                <p>Swiss design principles align perfectly with FAI's mission:</p>
+                <ul>
+                    <li><strong>Clarity:</strong> Policy and research requires clear communication (not decoration)</li>
+                    <li><strong>Systems thinking:</strong> Grid-based design matches systematic approach to policy</li>
+                    <li><strong>Objectivity:</strong> Swiss aesthetic suggests truth, data, scientific approach</li>
+                    <li><strong>Professionalism:</strong> Serious, credible appearance appropriate for think tank</li>
+                    <li><strong>Scalability:</strong> Grid systems scale easily as organization grows</li>
+                </ul>
+            </section>
+
+            <section class="section" id="grid-systems">
+                <h3>3. Grid Systems: Invisible Structure</h3>
+                <p>Grids are the invisible structure underlying all professional design. Understanding grids is essential for extending FAI's system.</p>
+
+                <h4>3.1 What is a Grid?</h4>
+                <p>A grid is a set of intersecting vertical and horizontal lines that divide a page into proportional, rectangular units. All content aligns to this grid.</p>
+
+                <p><strong>Benefits of grids:</strong></p>
+                <ul>
+                    <li>Creates visual order and harmony</li>
+                    <li>Enables consistency across designers and pages</li>
+                    <li>Makes responsive design easier (same grid adapts to different sizes)</li>
+                    <li>Speeds up design process (elements snap to predetermined positions)</li>
+                    <li>Creates professional, systematic appearance</li>
+                </ul>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 350" width="100%" height="auto">
+                        <!-- Desktop Grid -->
+                        <g id="desktop-grid">
+                            <text x="500" y="25" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Desktop Grid (1440px - 12 Columns)</text>
+
+                            <!-- Margins -->
+                            <rect x="40" y="50" width="40" height="200" fill="#FCE8E0" opacity="0.5" stroke="#EE6133" stroke-width="1" stroke-dasharray="4"/>
+                            <text x="60" y="160" font-size="10" text-anchor="middle" fill="#1A1A1A">40px</text>
+
+                            <!-- Columns -->
+                            <g id="grid-columns">
+                                <rect x="80" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="80" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+                                <rect x="196" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="196" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+                                <rect x="312" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="312" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+                                <rect x="428" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="428" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+                                <rect x="544" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="544" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+                                <rect x="660" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="660" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+                            </g>
+
+                            <!-- Right margin -->
+                            <rect x="756" y="50" width="40" height="200" fill="#FCE8E0" opacity="0.5" stroke="#EE6133" stroke-width="1" stroke-dasharray="4"/>
+                            <text x="776" y="160" font-size="10" text-anchor="middle" fill="#1A1A1A">40px</text>
+
+                            <!-- Gutter label -->
+                            <g id="gutter-label">
+                                <line x1="176" y1="260" x2="196" y2="260" stroke="#999" stroke-width="1"/>
+                                <line x1="176" y1="255" x2="176" y2="265" stroke="#999" stroke-width="1"/>
+                                <line x1="196" y1="255" x2="196" y2="265" stroke="#999" stroke-width="1"/>
+                                <text x="186" y="280" font-size="9" text-anchor="middle" fill="#999">16px gutter</text>
+                            </g>
+
+                            <!-- Column size -->
+                            <g id="column-label">
+                                <line x1="80" y1="280" x2="176" y2="280" stroke="#EE6133" stroke-width="2"/>
+                                <line x1="80" y1="275" x2="80" y2="285" stroke="#EE6133" stroke-width="2"/>
+                                <line x1="176" y1="275" x2="176" y2="285" stroke="#EE6133" stroke-width="2"/>
+                                <text x="128" y="300" font-size="11" font-weight="bold" text-anchor="middle" fill="#EE6133">96px column + 16px gutter</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI's 12-column grid system. On desktop: 12 columns × 96px each, 16px gutters between, 40px side margins.</p>
+
+                <h4>3.2 FAI Grid Specifications</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Breakpoint</th>
+                            <th>Width</th>
+                            <th>Columns</th>
+                            <th>Column Width</th>
+                            <th>Gutter</th>
+                            <th>Margins</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Desktop</strong></td>
+                            <td>1440px</td>
+                            <td>12</td>
+                            <td>96px</td>
+                            <td>16px</td>
+                            <td>40px</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tablet</strong></td>
+                            <td>768px</td>
+                            <td>8</td>
+                            <td>80px</td>
+                            <td>16px</td>
+                            <td>24px</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile</strong></td>
+                            <td>375px</td>
+                            <td>4</td>
+                            <td>79px</td>
+                            <td>12px</td>
+                            <td>16px</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="key-takeaways">
+                    <strong>Baseline Grid:</strong> In addition to column grid, FAI should implement 18pt baseline grid for vertical rhythm. This means all text baselines align to 18pt intervals. Heading of 36pt spans exactly 2 baseline units, maintaining vertical harmony across page.
+                </div>
+            </section>
+
+            <section class="section" id="geometric">
+                <h3>4. Geometric Abstraction in Illustration</h3>
+                <p>FAI's illustration system uses geometric abstraction—simple geometric shapes to create complex, meaningful visuals.</p>
+
+                <h4>4.1 Why Geometric?</h4>
+                <p><strong>Geometric shapes represent concepts:</strong></p>
+                <ul>
+                    <li><strong>Circle:</strong> Wholeness, ideas, individuals, completeness</li>
+                    <li><strong>Square:</strong> Structure, systems, order, technology</li>
+                    <li><strong>Triangle:</strong> Direction, change, strategy, movement</li>
+                    <li><strong>Lines:</strong> Connection, flow, relationships, network</li>
+                    <li><strong>Curve:</strong> Growth, fluidity, process, change</li>
+                    <li><strong>Grid:</strong> Organization, data, multiple elements, structure</li>
+                </ul>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 400" width="100%" height="auto">
+                        <!-- Shape Library -->
+                        <text x="500" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#EE6133">FAI's Geometric Shape Vocabulary</text>
+
+                        <!-- Circle -->
+                        <circle cx="100" cy="120" r="40" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="100" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Circle</text>
+                        <text x="100" y="205" font-size="10" text-anchor="middle" fill="#555">Wholeness, ideas</text>
+
+                        <!-- Square -->
+                        <rect x="200" y="80" width="80" height="80" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="240" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Square</text>
+                        <text x="240" y="205" font-size="10" text-anchor="middle" fill="#555">Structure, systems</text>
+
+                        <!-- Triangle -->
+                        <polygon points="380,80 420,160 340,160" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="380" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Triangle</text>
+                        <text x="380" y="205" font-size="10" text-anchor="middle" fill="#555">Direction, change</text>
+
+                        <!-- Lines/Network -->
+                        <line x1="500" y1="100" x2="550" y2="100" stroke="#EE6133" stroke-width="3"/>
+                        <line x1="525" y1="75" x2="525" y2="125" stroke="#EE6133" stroke-width="3"/>
+                        <line x1="480" y1="120" x2="570" y2="120" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="500" cy="100" r="4" fill="#EE6133"/>
+                        <circle cx="550" cy="100" r="4" fill="#EE6133"/>
+                        <circle cx="525" cy="75" r="4" fill="#EE6133"/>
+                        <circle cx="525" cy="125" r="4" fill="#EE6133"/>
+                        <text x="525" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Network</text>
+                        <text x="525" y="205" font-size="10" text-anchor="middle" fill="#555">Connection, flow</text>
+
+                        <!-- Curve -->
+                        <path d="M 640 160 Q 680 80 720 160" fill="none" stroke="#EE6133" stroke-width="3" stroke-linecap="round"/>
+                        <text x="680" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Curve</text>
+                        <text x="680" y="205" font-size="10" text-anchor="middle" fill="#555">Growth, fluidity</text>
+
+                        <!-- Grid -->
+                        <g id="grid-shape">
+                            <rect x="800" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="800" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="800" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                        </g>
+                        <text x="815" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Grid</text>
+                        <text x="815" y="205" font-size="10" text-anchor="middle" fill="#555">Organization, order</text>
+
+                        <!-- Composition Examples -->
+                        <text x="500" y="260" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Shape Combinations Create Meaning</text>
+
+                        <!-- Example 1: Collaboration -->
+                        <circle cx="150" cy="330" r="25" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="200" cy="330" r="25" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="175" y="365" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Collaboration</text>
+
+                        <!-- Example 2: Innovation -->
+                        <polygon points="400,305 420,330 380,330" fill="#EE6133"/>
+                        <rect x="370" y="335" width="30" height="30" fill="none" stroke="#EE6133" stroke-width="2"/>
+                        <text x="400" y="380" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Innovation</text>
+
+                        <!-- Example 3: Systems -->
+                        <g id="system-shape">
+                            <rect x="595" y="305" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="625" y="305" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="595" y="335" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="625" y="335" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <line x1="615" y1="305" x2="615" y2="355" stroke="#EE6133" stroke-width="1"/>
+                            <line x1="595" y1="325" x2="645" y2="325" stroke="#EE6133" stroke-width="1"/>
+                        </g>
+                        <text x="610" y="380" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Systems</text>
+
+                        <!-- Example 4: Growth -->
+                        <circle cx="800" cy="320" r="25" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="830" cy="300" r="20" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="855" cy="280" r="15" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="830" y="365" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Growth/Scale</text>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI's geometric shape vocabulary and how shapes combine to represent concepts.</p>
+
+                <h4>4.2 Composition System</h4>
+                <p><strong>Grid-Based Placement:</strong> All shapes placed on underlying 8px grid. Ensures alignment and consistency.</p>
+
+                <p><strong>Spacing Rules:</strong></p>
+                <ul>
+                    <li>Between shapes: 16-24px minimum (not touching)</li>
+                    <li>Overlapping: Allowed but intentional (shows relationship)</li>
+                    <li>White space: 30-40% of composition (shows confidence)</li>
+                </ul>
+
+                <p><strong>Illustration Composition Process:</strong></p>
+                <ol>
+                    <li>Define topic (what concept needs illustration?)</li>
+                    <li>Choose primary shape (what geometric form represents main idea?)</li>
+                    <li>Place on grid (use 8px grid for alignment)</li>
+                    <li>Add secondary shapes (supporting ideas)</li>
+                    <li>Connect with lines if needed (showing relationships)</li>
+                    <li>Apply color (orange primary, navy/gray secondary)</li>
+                    <li>Verify white space and balance</li>
+                </ol>
+
+                <div class="example-box">
+                    <strong>Example: Illustrating "Policy Framework Development"</strong>
+                    <p>1. Topic: Policy Framework Development<br>
+                    2. Primary shape: Square (representing structure/framework)<br>
+                    3. Place square in center of canvas<br>
+                    4. Add triangle pointing upward inside (representing development/growth)<br>
+                    5. Add circles around (representing stakeholders)<br>
+                    6. Connect circles to square with lines (showing involvement)<br>
+                    7. Color: Orange square (FAI focus), navy circles (stakeholders)<br>
+                    8. Result: Clear visual showing structured framework, upward trajectory, stakeholder involvement</p>
+                </div>
+            </section>
+
+            <section class="section" id="bauhaus">
+                <h3>5. Bauhaus Influence and Modernist Aesthetics</h3>
+                <p>FAI's design approach draws from Bauhaus (1919-1933), the legendary German school of design that revolutionized modernist thinking.</p>
+
+                <h4>5.1 Bauhaus Principles</h4>
+                <p><strong>Bauhaus believed:</strong></p>
+                <ul>
+                    <li><strong>Form follows function:</strong> Design's primary purpose is to solve problem, not decorate</li>
+                    <li><strong>Geometric abstraction:</strong> Reduce forms to geometric essentials</li>
+                    <li><strong>Integration of disciplines:</strong> Graphic design, architecture, typography, craftsmanship all work together</li>
+                    <li><strong>Machine aesthetic:</strong> Embrace industrial production (not hand-crafted aesthetics)</li>
+                    <li><strong>Universal principles:</strong> Design should work for everyone, not just elite</li>
+                    <li><strong>Grid systems:</strong> Order through underlying structure</li>
+                </ul>
+
+                <h4>5.2 Key Bauhaus Designers</h4>
+                <p><strong>Walter Gropius (1883-1969):</strong> Founder. Believed design education should combine art, craft, and technology. Created curriculum integrating all disciplines.</p>
+
+                <p><strong>László Moholy-Nagy (1895-1946):</strong> Teaching "Learning by doing" and exploring visual perception. Experimented with geometric forms, photography, light.</p>
+
+                <p><strong>Herbert Bayer (1900-1985):</strong> Graphic designer. Combined photography with typography in revolutionary ways. Designed Bauhaus materials using sans-serif fonts, geometric layouts, photomontage.</p>
+
+                <p><strong>Paul Klee (1879-1940):</strong> Painter and teacher. Taught color theory and geometric abstraction. Influenced how designers think about color relationships.</p>
+
+                <h4>5.3 Bauhaus → Swiss Design → FAI</h4>
+                <p>The lineage is clear: Bauhaus principles → Swiss design (1950s-70s) → Modern corporate design → FAI's approach.</p>
+
+                <ul>
+                    <li><strong>Bauhaus geometric abstraction:</strong> FAI uses circles, squares, triangles, grids</li>
+                    <li><strong>Bauhaus sans-serif fonts:</strong> FAI uses Schmalfette Grotesk + IBM Plex Sans</li>
+                    <li><strong>Bauhaus grid systems:</strong> FAI uses 12-column grid and baseline grid</li>
+                    <li><strong>Bauhaus form follows function:</strong> FAI design solves communication problems, not decoration</li>
+                    <li><strong>Bauhaus machine aesthetic:</strong> FAI's geometric, systematic look matches tech/policy context</li>
+                </ul>
+
+                <div class="pull-quote">
+                    "Everything starts with thinking... the solution of every design problem begins with careful analysis." — Walter Gropius
+                </div>
+            </section>
+
+            <!-- Due to token limits, continuing in next message with Part III: Typography -->
+
+            <section class="section" id="type-classification">
+                <h2>Part III: Typography Systems</h2>
+                <h3>1. Type Classification: Understanding Typeface Categories</h3>
+                <p>FAI uses two primary typefaces (Schmalfette Grotesk + IBM Plex Sans) that fall into the grotesque/sans-serif category. Understanding type classification helps make informed typography decisions.</p>
+
+                <h4>1.1 Major Type Categories</h4>
+                <p><strong>Serifs:</strong> Typefaces with small lines (serifs) extending from letter endings. Traditional, formal, book-like feeling. Examples: Times New Roman, Georgia, Garamond. Good for print body text (slightly more readable on paper).</p>
+
+                <p><strong>Sans-Serifs (Grotesques):</strong> Typefaces without serifs. Clean, modern, geometric. Examples: Helvetica, Arial, IBM Plex Sans. Preferred for digital and contemporary design.</p>
+
+                <p><strong>Geometric Sans-Serifs:</strong> Sans-serifs based on geometric shapes (circles, squares). Very modern, perfect for geometric design systems. Examples: Futura, Montserrat.</p>
+
+                <p><strong>Humanist Sans-Serifs:</strong> Sans-serifs with human proportions (varying widths, less geometric). More readable, friendlier than geometric. Examples: IBM Plex Sans, Calibre.</p>
+
+                <p><strong>Monospace:</strong> Every letter same width. Used for code, typewriter feel. Examples: Courier, IBM Plex Mono.</p>
+
+                <p><strong>Display/Decorative:</strong> Stylized, ornamental typefaces. Used for headlines only, not body text. Examples: Custom fonts, hand-drawn fonts.</p>
+
+                <h4>1.2 Grotesque Typefaces (FAI's Choice)</h4>
+                <p><strong>Grotesque Definition:</strong> Sans-serif typeface without serifs, geometric in construction, originally designed for poster and display use (not body text).</p>
+
+                <p><strong>Characteristics of Grotesque:</strong></p>
+                <ul>
+                    <li>No personality (neutral, objective appearance)</li>
+                    <li>Geometric construction (circles = curves, angles = straight)</li>
+                    <li>Consistent stroke weight (doesn't vary much)</li>
+                    <li>Very direct, modern feeling</li>
+                    <li>Excellent for headlines (high visibility)</li>
+                    <li>Less readable at small body text sizes</li>
+                </ul>
+
+                <p><strong>Why Grotesque for FAI?</strong></p>
+                <ul>
+                    <li>Schmalfette Grotesk (ultra-condensed) = distinctive, modern, forward-thinking</li>
+                    <li>IBM Plex Sans (humanist grotesque) = friendly but professional, readable at all sizes</li>
+                    <li>Grotesque aesthetic matches geometric illustration system (both geometric)</li>
+                    <li>Aligns with Swiss design heritage (grotesk is Swiss design standard)</li>
+                    <li>Technology associations (grotesques used in tech industry)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="type-scale">
+                <h3>2. Type Scale and Hierarchy: The Pentatonic System</h3>
+                <p>FAI uses a pentatonic type scale (five sizes: 36, 21, 12, 11, 10pt). This limited palette creates clear hierarchy with predictable ratios.</p>
+
+                <h4>2.1 The Pentatonic Scale</h4>
+                <p><strong>What is a type scale?</strong> A limited set of predefined font sizes used consistently across all design. Prevents arbitrary sizing (no random 14pt, 17pt, 19pt, etc.).</p>
+
+                <p><strong>Why pentatonic (five sizes)?</strong> Balances hierarchy (enough distinction) with constraints (limits choices). Perfect for systematic organizations.</p>
+
+                <p><strong>FAI's Pentatonic Scale:</strong></p>
+                <ul>
+                    <li><strong>36pt:</strong> Page titles, major headlines (orange, Schmalfette Grotesk)</li>
+                    <li><strong>21pt:</strong> Section headings, subsections (black, Schmalfette Grotesk)</li>
+                    <li><strong>12pt:</strong> Body text, primary reading (black, IBM Plex Sans)</li>
+                    <li><strong>11pt:</strong> Secondary text, captions, metadata (gray, IBM Plex Sans)</li>
+                    <li><strong>10pt:</strong> Fine print, footnotes, disclaimers (gray, IBM Plex Sans)</li>
+                </ul>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 500" width="100%" height="auto">
+                        <text x="500" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">FAI Pentatonic Type Scale</text>
+
+                        <!-- 36pt -->
+                        <g>
+                            <line x1="50" y1="80" x2="950" y2="80" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="120" x2="950" y2="120" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="108" font-size="36" font-weight="bold" fill="#EE6133">Headline</text>
+                            <text x="950" y="108" font-size="12" text-anchor="end" fill="#999">36pt / 1.2</text>
+                        </g>
+
+                        <!-- 21pt -->
+                        <g>
+                            <line x1="50" y1="160" x2="950" y2="160" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="195" x2="950" y2="195" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="183" font-size="21" font-weight="bold" fill="#1A1A1A">Subheading</text>
+                            <text x="950" y="183" font-size="12" text-anchor="end" fill="#999">21pt / 1.3</text>
+                        </g>
+
+                        <!-- 12pt -->
+                        <g>
+                            <line x1="50" y1="235" x2="950" y2="235" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="258" x2="950" y2="258" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="250" font-size="12" fill="#1A1A1A">Body text: The primary font size for reading. IBM Plex Sans provides excellent</text>
+                            <text x="950" y="250" font-size="12" text-anchor="end" fill="#999">12pt / 1.6</text>
+                        </g>
+
+                        <!-- 11pt -->
+                        <g>
+                            <line x1="50" y1="280" x2="950" y2="280" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="302" x2="950" y2="302" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="294" font-size="11" fill="#666">Secondary text: Captions, metadata, supporting information</text>
+                            <text x="950" y="294" font-size="12" text-anchor="end" fill="#999">11pt / 1.5</text>
+                        </g>
+
+                        <!-- 10pt -->
+                        <g>
+                            <line x1="50" y1="320" x2="950" y2="320" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="340" x2="950" y2="340" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="333" font-size="10" fill="#999">Fine print: Footnotes, disclaimers, minimal text</text>
+                            <text x="950" y="333" font-size="12" text-anchor="end" fill="#999">10pt / 1.5</text>
+                        </g>
+
+                        <!-- Ratios -->
+                        <g id="ratios">
+                            <text x="500" y="390" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Scale Ratios</text>
+                            <text x="500" y="415" font-size="11" text-anchor="middle" fill="#1A1A1A">36→21 = 1.71:1 | 21→12 = 1.75:1 | 12→11 = 1.09:1 | 11→10 = 1.10:1</text>
+                            <text x="500" y="440" font-size="10" text-anchor="middle" fill="#666">Large jumps (36→21→12) create clear hierarchy levels</text>
+                            <text x="500" y="460" font-size="10" text-anchor="middle" fill="#666">Small steps (12→11→10) enable subtle differentiation</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI's pentatonic type scale showing all five sizes with recommended leading values.</p>
+
+                <h4>2.2 Why These Specific Sizes?</h4>
+                <p>The ratios are deliberate:</p>
+                <ul>
+                    <li><strong>36:21 ratio (1.71)</strong> = Major visual break (title vs. section header)</li>
+                    <li><strong>21:12 ratio (1.75)</strong> = Significant distinction (section header vs. body)</li>
+                    <li><strong>12:11 ratio (1.09)</strong> = Subtle difference (body vs. secondary)</li>
+                    <li><strong>11:10 ratio (1.10)</strong> = Minimal distinction (supporting detail)</li>
+                </ul>
+
+                <p>These ratios create "natural" feeling hierarchy—large jumps for major distinctions, small steps for supporting content.</p>
+            </section>
+
+            <section class="section" id="hierarchy">
+                <h3>3. Type Hierarchy: Making Content Scannable</h3>
+                <p>Hierarchy is visual organization that shows what's important. Three techniques create hierarchy: size, color, weight.</p>
+
+                <h4>3.1 Hierarchy Techniques</h4>
+                <p><strong>Size Contrast:</strong> Larger = more important. FAI uses scale differences (36pt vs. 12pt).</p>
+                <p><strong>Color Contrast:</strong> FAI headlines often orange (#EE6133), body text black. Orange = primary importance.</p>
+                <p><strong>Weight Contrast:</strong> Bold = more important. Headlines: weight 700 (bold), body: weight 400 (regular).</p>
+
+                <p><strong>Hierarchy in Practice:</strong></p>
+                <ul>
+                    <li>Research report title: 36pt, orange, bold = most important</li>
+                    <li>Section headings: 21pt, black, semibold = secondary importance</li>
+                    <li>Body paragraphs: 12pt, black, regular = primary content</li>
+                    <li>Captions/metadata: 11pt, gray, regular = supporting</li>
+                    <li>Footnotes: 10pt, gray, regular = fine detail</li>
+                </ul>
+
+                <p><strong>Visual Scanning:</strong> Users scan headlines before reading. Clear hierarchy enables quick understanding:</p>
+                <ol>
+                    <li>Eye catches 36pt orange title (what is this?)</li>
+                    <li>Scans 21pt black headings (what are the main sections?)</li>
+                    <li>Reads 12pt body paragraphs (detailed content)</li>
+                    <li>References 11pt/10pt for specific citations/notes</li>
+                </ol>
+            </section>
+
+            <section class="section" id="kerning">
+                <h3>4. Kerning: Letter Spacing Precision</h3>
+                <p>Kerning is adjusting space between specific letter pairs to achieve visual balance. Critical for headlines, optional for body text.</p>
+
+                <h4>4.1 Why Kerning Matters</h4>
+                <p><strong>Problem:</strong> Mathematical spacing between letters doesn't always look balanced to human eye.</p>
+
+                <div class="definition-box">
+                    <strong>Kerning:</strong> Adjustment of space between two letters to achieve visual balance (not mathematical spacing). "Wa" mathematically spaced feels too loose because W is large. Kerning reduces space, making it feel balanced.
+                </div>
+
+                <p><strong>Not the same as:</strong></p>
+                <ul>
+                    <li><strong>Tracking:</strong> Uniform space adjustment between ALL letters (whole-word spacing)</li>
+                    <li><strong>Leading:</strong> Vertical space between lines</li>
+                </ul>
+
+                <h4>4.2 Metrics vs. Optical Kerning</h4>
+                <p><strong>Metrics Kerning:</strong> Font's built-in kerning table (automatic). Professional fonts have good metrics kerning.</p>
+
+                <p><strong>Optical Kerning:</strong> Visual adjustment (manual or algorithm). Good for headlines, contexts metrics kerning doesn't cover.</p>
+
+                <p><strong>For FAI:</strong></p>
+                <ul>
+                    <li>IBM Plex Sans: Use metrics kerning (well-designed font)</li>
+                    <li>Schmalfette Grotesk headlines: May benefit from optical kerning (condensed fonts need special care)</li>
+                    <li>Body text: Always metrics kerning (consistency and speed)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="leading">
+                <h3>5. Leading and Line Height: Vertical Rhythm</h3>
+                <p>Leading (pronounced "LED-ing") is vertical space between lines. As important as type size for readability.</p>
+
+                <h4>5.1 Leading Definitions</h4>
+                <p><strong>Leading:</strong> Vertical distance between baseline of one line and baseline of next. Measured in points.</p>
+
+                <p><strong>Line Height (CSS equivalent):</strong> Unitless multiplier. "line-height: 1.5" means 1.5× the type size.</p>
+
+                <h4>5.2 FAI Type System Leading</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Leading</th>
+                            <th>CSS Line-Height</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>36pt (headline)</td>
+                            <td>40-44pt</td>
+                            <td>1.1-1.2</td>
+                            <td>Tight (large type looks loose)</td>
+                        </tr>
+                        <tr>
+                            <td>21pt (subheading)</td>
+                            <td>24-28pt</td>
+                            <td>1.14-1.33</td>
+                            <td>Moderate</td>
+                        </tr>
+                        <tr>
+                            <td>12pt (body)</td>
+                            <td>18-20pt</td>
+                            <td>1.5-1.67</td>
+                            <td>Generous (readability)</td>
+                        </tr>
+                        <tr>
+                            <td>11pt (secondary)</td>
+                            <td>16.5-18pt</td>
+                            <td>1.5-1.64</td>
+                            <td>Generous</td>
+                        </tr>
+                        <tr>
+                            <td>10pt (fine print)</td>
+                            <td>15pt</td>
+                            <td>1.5</td>
+                            <td>Maintain readability</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>5.3 Baseline Grid</h4>
+                <p><strong>Baseline Grid Definition:</strong> Horizontal lines at regular intervals that all text aligns to. Creates vertical rhythm and order.</p>
+
+                <p><strong>FAI's Baseline Grid:</strong> Recommended 18pt intervals (matching 12pt body + 1.5× leading).</p>
+
+                <p><strong>Benefits:</strong></p>
+                <ul>
+                    <li>Consistent vertical spacing across pages</li>
+                    <li>Professional, polished appearance</li>
+                    <li>Text and images align (no floating between lines)</li>
+                    <li>Especially important for publications and printed materials</li>
+                </ul>
+
+                <p><strong>Effect on Readability:</strong></p>
+                <ul>
+                    <li><strong>Too tight (&lt;1.4):</strong> Feels cramped, lines run together, harder to track to next line</li>
+                    <li><strong>Normal (1.5):</strong> Comfortable reading, clear line separation</li>
+                    <li><strong>Generous (1.8+):</strong> Very readable, accessible for dyslexia, but takes more space</li>
+                </ul>
+            </section>
+
+            <!-- PART IV: COLOR THEORY & SYSTEMS -->
+            <section class="section" id="color-basics">
+                <h2>Part IV: Color Theory & Systems</h2>
+                <h3>1. Shades, Tints, and Tones: Color Family Building</h3>
+                <p class="reading-time">Understanding color systems: 8 minutes</p>
+
+                <h4>1.1 Precise Definitions</h4>
+                <p><strong>Hue:</strong> The pure color (red, blue, orange, etc.). Position on color wheel (0-360°). FAI's primary hue: International Orange (~25-30°).</p>
+                <p><strong>Shade:</strong> A hue with black added (darker version). Use for emphasis, depth, hover states.</p>
+                <p><strong>Tint:</strong> A hue with white added (lighter version). Use for backgrounds, soft accents, disabled states.</p>
+                <p><strong>Tone:</strong> A hue with gray added (desaturated version). Less vibrant than pure hue. Use for secondary purposes or compatibility with neutral palettes.</p>
+                <p><strong>Saturation:</strong> Intensity of the color. High saturation = vivid, pure color. Low saturation = muted, grayish.</p>
+
+                <h4>1.2 FAI Orange Color Family</h4>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #7C2810;"></div>
+                        <div class="color-item-name">Very Dark Orange</div>
+                        <div class="color-item-hex">#7C2810</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #D94B1A;"></div>
+                        <div class="color-item-name">Dark Orange</div>
+                        <div class="color-item-hex">#D94B1A</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #EE6133; border: 2px solid #333;"></div>
+                        <div class="color-item-name">Primary Orange</div>
+                        <div class="color-item-hex">#EE6133</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #F5D4C8;"></div>
+                        <div class="color-item-name">Light Orange</div>
+                        <div class="color-item-hex">#F5D4C8</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #FCE8E0;"></div>
+                        <div class="color-item-name">Very Light Orange</div>
+                        <div class="color-item-hex">#FCE8E0</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #FEF3F0;"></div>
+                        <div class="color-item-name">Pale Orange</div>
+                        <div class="color-item-hex">#FEF3F0</div>
+                    </div>
+                </div>
+                <p class="diagram-caption">FAI's complete orange color family: shades for emphasis, tints for backgrounds, spanning from very dark to nearly white.</p>
+
+                <div class="callout">
+                    <strong>Building Color Families:</strong> Create shades by adding 10%, 20%, 30% black incrementally. Create tints by adding 15%, 25%, 40% white incrementally. Verify readability: can text on these colors be read? (Lightest tint must have 4.5:1 contrast with black text.)
+                </div>
+            </section>
+
+            <section class="section" id="color-spaces">
+                <h3>2. Color Spaces: HSL, RGB, LAB, Hex</h3>
+                <p>Different color spaces serve different purposes. Understanding each helps choose the right tool for the job.</p>
+
+                <h4>2.1 RGB (Red-Green-Blue)</h4>
+                <p><strong>Definition:</strong> Colors created by combining red, green, and blue light. Each channel: 0-255.</p>
+                <p><strong>FAI International Orange RGB:</strong> 238, 97, 51 (93% red, 38% green, 20% blue)</p>
+                <p><strong>Use Cases:</strong> All digital media (screens default to RGB). Web, video, photography.</p>
+                <p><strong>Limitations:</strong> Not intuitive for color relationships. Adding 10% to each channel doesn't create consistent tint. Red (255,0,0) and blue (0,0,255) feel different in brightness even though equally "intense."</p>
+
+                <h4>2.2 HSL (Hue-Saturation-Lightness)</h4>
+                <p><strong>Definition:</strong> Colors defined by three independent perceptual properties.</p>
+                <ul>
+                    <li><strong>Hue:</strong> 0-360° (position on color wheel)</li>
+                    <li><strong>Saturation:</strong> 0-100% (color intensity)</li>
+                    <li><strong>Lightness:</strong> 0-100% (brightness, 50% = pure color)</li>
+                </ul>
+                <p><strong>FAI International Orange HSL:</strong> 25°, 98%, 57%</p>
+                <p><strong>Creating Variations:</strong></p>
+                <ul>
+                    <li>Darker shade: HSL(25°, 98%, 42%) — reduced lightness</li>
+                    <li>Lighter tint: HSL(25°, 98%, 72%) — increased lightness</li>
+                    <li>Muted tone: HSL(25°, 60%, 57%) — reduced saturation</li>
+                </ul>
+                <p><strong>Why HSL Works:</strong> Change one number, get predictable variation. Saturation and hue stay constant for tints/shades of the same hue.</p>
+
+                <h4>2.3 LAB Color Space</h4>
+                <p><strong>Definition:</strong> Colors defined by human perception of brightness and color dimensions.</p>
+                <p><strong>Values:</strong> Lightness (0-100), A (-128 to +127, green to red), B (-128 to +127, blue to yellow)</p>
+                <p><strong>FAI International Orange LAB:</strong> L: 54, A: 51, B: 42</p>
+                <p><strong>Use Cases:</strong> Professional color matching (printing), accessibility calculations (WCAG contrast ratios), when human perception matters most.</p>
+                <p><strong>Advantage:</strong> Perceptually uniform—same LAB change feels same to human eye across all hues. Better for accessibility and printing.</p>
+
+                <h4>2.4 Hex Codes</h4>
+                <p><strong>Definition:</strong> Six-digit hexadecimal representation of RGB color. #RRGGBB format.</p>
+                <p><strong>FAI International Orange Hex:</strong> #EE6133</p>
+                <p><strong>Use Cases:</strong> Web design (HTML/CSS native), quick communication, universal design tool support.</p>
+
+                <div class="key-takeaways">
+                    <strong>When to Use Which:</strong><br>
+                    • Building tints/shades: HSL (most intuitive)<br>
+                    • Web/CSS: Hex or CSS HSL<br>
+                    • Printing/proofs: LAB (professional matching)<br>
+                    • Accessibility checks: LAB (WCAG uses LAB)<br>
+                    • Quick communication: Hex (easy to share)
+                </div>
+            </section>
+
+            <section class="section" id="color-harmony">
+                <h3>3. Color Harmony: Complementary, Analogous, Triadic Schemes</h3>
+
+                <h4>3.1 Complementary Colors</h4>
+                <p><strong>Definition:</strong> Colors opposite on color wheel (~180° apart). Maximum contrast.</p>
+                <p><strong>FAI Example:</strong> Orange (25°) + Navy Blue (205-210°)</p>
+                <p><strong>Characteristics:</strong> Maximum contrast, vibrant, energetic. Both colors intensify each other.</p>
+                <p><strong>Usage:</strong> Orange as primary, Navy as accent for emphasis and data visualization. Creates visual interest without clashing.</p>
+
+                <h4>3.2 Analogous Colors</h4>
+                <p><strong>Definition:</strong> Colors next to each other on color wheel (~30° apart).</p>
+                <p><strong>Example:</strong> Orange (25°) + Yellow-Gold (60°) + Red (0°)</p>
+                <p><strong>Characteristics:</strong> Harmonious, cohesive, warm feeling. Less contrast than complementary.</p>
+                <p><strong>Usage:</strong> If FAI wanted warmth and cohesion. Orange + yellow would be harmonious pair, both conveying energy and optimism.</p>
+
+                <h4>3.3 Triadic Colors</h4>
+                <p><strong>Definition:</strong> Three colors equally spaced on color wheel (~120° apart).</p>
+                <p><strong>Example:</strong> Orange (25°) + Green (145°) + Violet (265°)</p>
+                <p><strong>Characteristics:</strong> Very vibrant, balanced, complex. High visual interest.</p>
+                <p><strong>Usage:</strong> More complex than needed for FAI (orange + navy sufficient), but useful if organization grows with multiple programs needing distinct colors.</p>
+
+                <h4>3.4 Monochromatic Scheme</h4>
+                <p><strong>Definition:</strong> Single hue with multiple tints, shades, tones.</p>
+                <p><strong>FAI Example:</strong> Dark Orange, Orange, Light Orange, Very Light Orange (all same hue, different lightness)</p>
+                <p><strong>Characteristics:</strong> Extremely cohesive, elegant, sophisticated. Can feel boring without careful use.</p>
+                <p><strong>Usage:</strong> FAI could create sophisticated palette with orange family alone. Very clean, very professional.</p>
+            </section>
+
+            <section class="section" id="figure-ground">
+                <h3>4. Figure-Ground Contrast: Readability Principles</h3>
+                <p>Beyond color harmony, figure-ground contrast determines readability. Figure (text/content) must visually separate from ground (background).</p>
+
+                <h4>4.1 Contrast Dimensions</h4>
+                <ul>
+                    <li><strong>Brightness Contrast:</strong> Black on white = maximum. Gray on white = less. Dark gray on light gray = poor.</li>
+                    <li><strong>Color Contrast (Hue):</strong> Orange on blue = high. Orange on yellow = low.</li>
+                    <li><strong>Saturation Contrast:</strong> Vivid orange on desaturated gray = clear. Both desaturated = less separation.</li>
+                    <li><strong>Size Contrast:</strong> Large text stands out from small background pattern.</li>
+                </ul>
+
+                <h4>4.2 WCAG Contrast Standards (Web Accessibility)</h4>
+                <p><strong>For Text:</strong></p>
+                <ul>
+                    <li>Normal text: 4.5:1 contrast ratio minimum (WCAG AA)</li>
+                    <li>Large text (18pt+ or 14pt+ bold): 3:1 minimum</li>
+                    <li>AAA (high): 7:1 for normal, 4.5:1 for large</li>
+                </ul>
+                <p><strong>For Graphics/UI:</strong> 3:1 minimum (WCAG AA), 4.5:1 highly recommended</p>
+
+                <h4>4.3 FAI Color Contrast Verification</h4>
+                <ul>
+                    <li><strong>International Orange (#EE6133) on White:</strong> 5.2:1 — meets WCAG AA for body text. Safe for headlines, body, primary actions.</li>
+                    <li><strong>International Orange on Very Light Orange (#FEF3F0):</strong> ~2:1 — fails WCAG. Use only for subtle hover states, not text.</li>
+                    <li><strong>Navy Blue (#003366) on White:</strong> ~8:1 — excellent, meets WCAG AAA. Safe for any text.</li>
+                    <li><strong>Black on Light Orange (#F5D4C8):</strong> ~7:1 — excellent. Text on orange backgrounds.</li>
+                </ul>
+
+                <div class="warning-box">
+                    <strong>Accessibility Rule:</strong> Always test readability, especially for people with color blindness. When in doubt, use high contrast (black on white or white on dark).
+                </div>
+            </section>
+
+            <section class="section" id="accessibility">
+                <h3>5. Color Accessibility: Designing for Color Blindness</h3>
+                <p>Color blindness affects 8% of men and 0.5% of women. Design that works for everyone.</p>
+
+                <h4>5.1 Types of Color Blindness</h4>
+                <ul>
+                    <li><strong>Red-Green (most common):</strong> Red and green appear similar, often brownish/yellowish. Orange appears similar to red.</li>
+                    <li><strong>Blue-Yellow (rare):</strong> Blue and yellow appear similar.</li>
+                    <li><strong>Monochromacy (very rare):</strong> See only in grayscale. Requires maximum brightness contrast.</li>
+                </ul>
+
+                <h4>5.2 Design Rules for Color Blindness</h4>
+                <ol>
+                    <li><strong>Don't use color alone:</strong> Red button + X icon (not red alone) = error</li>
+                    <li><strong>Use brightness contrast:</strong> Red (#FF0000) and green (#00FF00) might look similar in hue, but if red is dark and green is bright, difference is visible</li>
+                    <li><strong>Use shapes/patterns:</strong> Error message: red + X icon. Success: green + checkmark. Charts: color + different patterns (striped, dotted)</li>
+                    <li><strong>Test with simulators:</strong> Coblis, Vischeck, or design software accessibility checkers</li>
+                </ol>
+
+                <h4>5.3 FAI Accessibility Recommendations</h4>
+                <ul>
+                    <li><strong>Data Visualization:</strong> Orange + Navy are distinguishable even for red-green colorblind. Add patterns (solid vs. striped) for additional differentiation. Label all series clearly.</li>
+                    <li><strong>UI Components:</strong> Buttons use color + icons/states. Hover states with darker shade or underline. Active states with icons or opacity changes.</li>
+                    <li><strong>Text:</strong> International Orange on white meets standards. Always verify 4.5:1 minimum contrast. Use color + weight/style for emphasis (bold + orange, not orange alone).</li>
+                </ul>
+
+                <div class="callout">
+                    <strong>FAI Testing Process:</strong> 1) Check contrast ratio (4.5:1 minimum). 2) Simulate color blindness (check distinguishability). 3) Verify icons/patterns distinguish colors. 4) Test with actual users if possible.
+                </div>
+            </section>
+
+            <!-- PART V: VISUAL DESIGN SYSTEMS -->
+            <section class="section" id="logo-systems">
+                <h2>Part V: Visual Design Systems</h2>
+                <h3>1. Logo Systems: Logomark, Logotype, Lockups</h3>
+
+                <h4>1.1 Logo Components</h4>
+                <p><strong>Logomark (Symbol/Icon):</strong> Standalone symbol recognizable alone. Can be used as favicon, social avatar, icon. For FAI: the geometric mark.</p>
+                <p><strong>Logotype (Wordmark):</strong> Text-only version in brand typeface. "Foundation for American Innovation" in Schmalfette Grotesk. Can stand alone when brand well-known.</p>
+                <p><strong>Lockup (Full Logo):</strong> Combination of logomark + logotype. How logo typically appears. Multiple variations for different contexts.</p>
+
+                <h4>1.2 FAI Logo Variations</h4>
+                <ul>
+                    <li><strong>Primary Horizontal:</strong> Mark left, text right. For website headers, letterhead, standard use.</li>
+                    <li><strong>Stacked Vertical:</strong> Mark above text. For narrow spaces (mobile headers, narrow columns).</li>
+                    <li><strong>Compact:</strong> Mark + "FAI" acronym. When full name too long.</li>
+                    <li><strong>Logomark Only:</strong> Symbol alone. For favicon, social avatar, small contexts where brand is well-known.</li>
+                </ul>
+
+                <h4>1.3 Clear Space (Minimum Space Around Logo)</h4>
+                <p><strong>Definition:</strong> Mandatory empty space around logo preventing crowding.</p>
+                <p><strong>Calculation:</strong> Identify smallest element in logo. Clear space = 2-3× this dimension.</p>
+                <p><strong>FAI Specifications:</strong> Determine smallest mark element, use as baseline. Clear space = 2× this element on all sides. At large sizes (print), scale proportionally.</p>
+
+                <h4>1.4 Logo Misuse Guidelines</h4>
+                <p><strong>Don't:</strong> Stretch/distort, rotate arbitrarily, change colors without approval, remove parts, add effects (shadows, gradients), make smaller than minimum size, place on busy background, use unofficial versions, apply transparency without approval.</p>
+                <p><strong>Do:</strong> Use approved lockup variations, maintain clear space, use correct colors, scale proportionally, use high-quality files, follow guidelines, contact brand team with questions.</p>
+
+                <h4>1.5 File Formats</h4>
+                <p><strong>For Digital:</strong> SVG (preferred, scalable), PNG (transparent), 1x and 2x sizes for retina displays.</p>
+                <p><strong>For Print:</strong> PDF (high quality), EPS (older), TIFF (if vector unavailable). CMYK color, 300 DPI minimum.</p>
+                <p><strong>For Design:</strong> Figma/Adobe files (editable), outline all text, include clear space guides.</p>
+            </section>
+
+            <section class="section" id="illustrations">
+                <h3>2. Geometric Illustration Systems: Modular Shapes</h3>
+                <p class="reading-time">Building illustration systems: 6 minutes</p>
+
+                <h4>2.1 Shape Vocabulary</h4>
+                <p>A limited set of shapes used consistently across all illustrations creates coherent visual language.</p>
+                <ul>
+                    <li><strong>Circle:</strong> Idea, wholeness, individuals, light</li>
+                    <li><strong>Square:</strong> Technology, systems, structure, order</li>
+                    <li><strong>Triangle:</strong> Direction, strategy, hierarchy, change</li>
+                    <li><strong>Line:</strong> Connection, flow, network, relationship</li>
+                    <li><strong>Curve:</strong> Growth, fluidity, process, flexibility</li>
+                    <li><strong>Grid:</strong> Organization, data, multiple elements, structure</li>
+                </ul>
+
+                <h4>2.2 Size System</h4>
+                <ul>
+                    <li>Small: 24px × 24px</li>
+                    <li>Medium: 48px × 48px (2× small)</li>
+                    <li>Large: 96px × 96px (2× medium)</li>
+                </ul>
+
+                <h4>2.3 Modular Composition System</h4>
+                <p><strong>Grid-Based Placement:</strong> All shapes placed on 8px underlying grid. Ensures alignment and consistency.</p>
+                <p><strong>Spacing Rules:</strong> Between shapes: 16-24px minimum. Overlapping allowed (shows relationship). White space: 30-40% of composition.</p>
+                <p><strong>Composition Process:</strong></p>
+                <ol>
+                    <li>Define topic (what concept?)</li>
+                    <li>Choose primary shape (main idea?)</li>
+                    <li>Place on grid with alignment</li>
+                    <li>Add secondary shapes (supporting ideas)</li>
+                    <li>Connect with lines if needed</li>
+                    <li>Apply color (orange primary, navy/gray secondary)</li>
+                    <li>Verify white space and balance</li>
+                </ol>
+
+                <h4>2.4 Color Application</h4>
+                <ul>
+                    <li><strong>Primary Color:</strong> International Orange (main shape, FAI brand connection)</li>
+                    <li><strong>Secondary Color:</strong> Navy blue, gray, or muted orange (supporting shapes)</li>
+                    <li><strong>Background:</strong> White or very light orange (illustrations stand out)</li>
+                    <li><strong>Palette Variation:</strong> Can swap primary/secondary for variety, but orange should appear in all illustrations</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>Illustration Example: "AI Policy Implementation"</strong>
+                    <p>Topic: Implementing AI policy across institutions<br>
+                    Primary shape: Grid (representing systematic structure)<br>
+                    Secondary shapes: Circles (institutions/stakeholders)<br>
+                    Connecting: Lines (showing implementation flow)<br>
+                    Colors: Orange grid (FAI framework), navy circles (institutions)<br>
+                    Result: Shows systematic framework with institutional participants</p>
+                </div>
+            </section>
+
+            <section class="section" id="layout">
+                <h3>3. Layout & Composition Principles</h3>
+
+                <h4>3.1 Compositional Grids</h4>
+                <p><strong>Rule of Thirds:</strong> Divide space into 9 sections (3×3 grid). Place focal points at intersections. Natural feeling, effective.</p>
+                <p><strong>Golden Ratio:</strong> Mathematical ratio (~1.618:1). Harmonious, natural-feeling. More complex than rule of thirds.</p>
+                <p><strong>Symmetrical Grid:</strong> Mirror arrangement. Formal, balanced, stable. Less dynamic than asymmetrical.</p>
+                <p><strong>Asymmetrical Grid (FAI's Choice):</strong> Elements without mirror symmetry. Dynamic, interesting, modern. Swiss design approach.</p>
+
+                <h4>3.2 White Space (Negative Space)</h4>
+                <p><strong>Definition:</strong> Empty space around and between elements.</p>
+                <p><strong>Importance:</strong> Makes design readable, prevents visual overwhelm, creates elegance and sophistication.</p>
+                <p><strong>White Space Proportions:</strong></p>
+                <ul>
+                    <li>Generous: 50%+ (very elegant)</li>
+                    <li>Balanced: 30-40% (professional)</li>
+                    <li>Tight: 10-20% (dense, energetic)</li>
+                    <li>Cramped: &lt;10% (chaotic, hard to read)</li>
+                </ul>
+                <p><strong>FAI Recommendation:</strong> 35-40% white space (professional, not overly sparse).</p>
+
+                <h4>3.3 Visual Rhythm</h4>
+                <p><strong>Regular Rhythm:</strong> Elements repeat at even intervals. Orderly, predictable, mechanical. Good for data/systematic contexts.</p>
+                <p><strong>Alternating Rhythm:</strong> Elements alternate between two patterns. Organized, musical, controlled visual interest.</p>
+                <p><strong>Progressive Rhythm:</strong> Elements change gradually. Dynamic, purposeful. Good for showing progression/growth.</p>
+                <p><strong>For FAI:</strong> Use regular or progressive rhythm (matches systematic approach).</p>
+            </section>
+
+            <!-- PART VI: IMPLEMENTATION -->
+            <section class="section" id="design-systems">
+                <h2>Part VI: Implementation</h2>
+                <h3>1. Design Systems: Components and Scale</h3>
+
+                <h4>1.1 What is a Design System?</h4>
+                <p><strong>Definition:</strong> Set of reusable components, patterns, and guidelines enabling consistent design across organization.</p>
+                <p><strong>Components:</strong> Buttons, form inputs, cards, navigation, headers, modals, icons.</p>
+                <p><strong>Patterns:</strong> How components combine, when to use which, responsive behavior, interaction states.</p>
+                <p><strong>Guidelines:</strong> Principles (why decisions were made), usage guidelines, do's/don'ts, accessibility, examples.</p>
+
+                <h4>1.2 Design System Benefits</h4>
+                <p><strong>For Design:</strong> Faster process (reuse components), consistency (all buttons look same), scalability (system scales with organization), clear language.</p>
+                <p><strong>For Development:</strong> Code components match design, faster development, consistent behavior, testing once = tested everywhere.</p>
+                <p><strong>For Organization:</strong> Unified brand, reduced costs, clear documentation, flexibility to evolve.</p>
+
+                <h4>1.3 What Goes in a Design System</h4>
+                <ol>
+                    <li>Design tokens (colors, typography, spacing)</li>
+                    <li>Color palette (all variations)</li>
+                    <li>Typography system (fonts, sizes, weights)</li>
+                    <li>Icons (icon library)</li>
+                    <li>Components (buttons, cards, forms, etc.)</li>
+                    <li>Patterns (layout patterns, interactions)</li>
+                    <li>Voice & tone (writing guidelines)</li>
+                    <li>Imagery (photography/illustration style)</li>
+                    <li>Accessibility standards (WCAG compliance)</li>
+                    <li>Real-world examples</li>
+                </ol>
+            </section>
+
+            <section class="section" id="tokens">
+                <h3>2. Design Tokens: Cross-Platform Consistency</h3>
+
+                <h4>2.1 What Are Design Tokens?</h4>
+                <p><strong>Definition:</strong> Named values representing design decisions usable across platforms (web, iOS, Android, print).</p>
+                <p><strong>Concept:</strong> Instead of hardcoding #EE6133 everywhere, define token `color-primary: #EE6133`. Change token once, all usages update.</p>
+
+                <h4>2.2 Token Naming</h4>
+                <p><strong>Format:</strong> [category]-[property]-[modifier]</p>
+                <p><strong>Examples:</strong> `color-primary`, `color-primary-dark`, `font-size-heading-1`, `spacing-medium`</p>
+
+                <h4>2.3 Token Categories</h4>
+                <ul>
+                    <li><strong>Color:</strong> All colors + variations</li>
+                    <li><strong>Typography:</strong> Fonts, sizes, weights</li>
+                    <li><strong>Spacing:</strong> Margins, padding values</li>
+                    <li><strong>Border:</strong> Border radius, width</li>
+                    <li><strong>Shadow:</strong> Elevation/depth effects</li>
+                    <li><strong>Sizing:</strong> Component sizes</li>
+                    <li><strong>Duration:</strong> Animation lengths</li>
+                </ul>
+
+                <h4>2.4 Implementation Platforms</h4>
+                <p><strong>Web (CSS):</strong> CSS variables (--color-primary: #EE6133)</p>
+                <p><strong>iOS (Swift):</strong> Structs with static properties</p>
+                <p><strong>Android (XML):</strong> Resource files</p>
+                <p><strong>FAI Recommendation:</strong> Start with Figma + CSS variables for web, expand as needed.</p>
+            </section>
+
+            <section class="section" id="atomic">
+                <h3>3. Atomic Design: Atoms → Molecules → Organisms → Templates → Pages</h3>
+
+                <h4>3.1 Hierarchy Levels</h4>
+                <p><strong>Atoms (Smallest):</strong> Button, input, icon, label, color, typeface. Too small alone, combine to form molecules.</p>
+                <p><strong>Molecules (Simple):</strong> Button + icon, label + input, search bar (input + button + icon). Single purpose, reusable.</p>
+                <p><strong>Organisms (Complex):</strong> Header (logo + nav menu), card (image + title + description + button). Complex but distinct module.</p>
+                <p><strong>Templates (Structure):</strong> Blog post layout, product page layout. Shows structure without content.</p>
+                <p><strong>Pages (Real Content):</strong> Specific blog post, specific product. Templates populated with actual content.</p>
+
+                <h4>3.2 FAI Atomic Design Example</h4>
+                <p><strong>Atoms:</strong> International Orange, Schmalfette Grotesk, IBM Plex Sans, 12pt body, 8px spacing, icons (24/32/48px), divider line.</p>
+                <p><strong>Molecules:</strong> Button (color + type + spacing), form input (field + label + error), card (divider + type + spacing + color).</p>
+                <p><strong>Organisms:</strong> Header (logo + nav), hero section (headline + description + button + image), card grid, footer.</p>
+                <p><strong>Templates:</strong> Research report (header + hero + body + sidebar + footer), event page (hero + details + speakers + schedule + CTA).</p>
+                <p><strong>Pages:</strong> Specific report, specific event page with real data.</p>
+
+                <h4>3.3 Benefits</h4>
+                <ul>
+                    <li>Clear hierarchy (atoms→molecules→organisms→pages)</li>
+                    <li>Reusability (molecules used in multiple organisms)</li>
+                    <li>Consistency (same atoms everywhere)</li>
+                    <li>Flexibility (molecules combine different ways)</li>
+                    <li>Scalability (junior designers can build pages from organisms)</li>
+                </ul>
+            </section>
+
+            <section class="section" id="components">
+                <h3>4. Component-Based Design: Building from Reusable Parts</h3>
+
+                <h4>4.1 What Makes a Good Component</h4>
+                <ul>
+                    <li><strong>Single Responsibility:</strong> Component does one thing well</li>
+                    <li><strong>Clear Interface:</strong> Properties/props are explicit</li>
+                    <li><strong>Consistent Behavior:</strong> Same props always produce same result</li>
+                    <li><strong>Reusable:</strong> Works in multiple contexts with different data</li>
+                    <li><strong>Well-Documented:</strong> Usage guidelines, examples, do's/don'ts, accessibility</li>
+                </ul>
+
+                <h4>4.2 FAI Component Examples</h4>
+                <p><strong>Button Component:</strong> Props for text, color, size, disabled state, onClick, icon. States: default, hover, active, disabled, loading. Accessibility: semantic button, ARIA labels, focus visible, sufficient contrast.</p>
+                <p><strong>Card Component:</strong> Props for title, description, image, link, color. States: clickable/static, hover, focused. Variations: with/without image, with/without link, horizontal/vertical.</p>
+                <p><strong>Navigation Component:</strong> Props for items array, active item, layout. States: active (orange, bold), inactive (gray), hover (darker). Mobile: hamburger menu.</p>
+
+                <h4>4.3 Component Documentation</h4>
+                <p>For each component: Overview (what/when/when not), Props (name/type/required), States (default/hover/focus/active/disabled), Variations, Examples (3-5 real examples), Accessibility, Do's and Don'ts.</p>
+            </section>
+
+            <section class="section" id="templates">
+                <h3>5. Template Systems: Flexible yet Consistent</h3>
+
+                <h4>5.1 What are Templates?</h4>
+                <p><strong>Definition:</strong> Predefined page structures with flexible content areas.</p>
+                <p><strong>Advantages:</strong> Consistency (all pages cohesive), flexibility (content varies), efficiency (use template vs. design from scratch), scalability (add pages quickly).</p>
+
+                <h4>5.2 FAI Template Examples</h4>
+                <p><strong>Research Publication Template:</strong></p>
+                <ul>
+                    <li>Fixed: Header, typography, colors, footer</li>
+                    <li>Flexible: Hero image, body content, author bio, related publications</li>
+                </ul>
+                <p><strong>Event Page Template:</strong></p>
+                <ul>
+                    <li>Fixed: Header, component design (cards), colors, footer</li>
+                    <li>Flexible: Event name/date/location, description, speakers list, agenda, FAQ</li>
+                </ul>
+                <p><strong>Team Member Profile:</strong></p>
+                <ul>
+                    <li>Fixed: Layout, colors, icons, typography</li>
+                    <li>Flexible: Photo, name, title, bio, focus areas, publications</li>
+                </ul>
+
+                <h4>5.3 Implementation</h4>
+                <p><strong>Design Software:</strong> Figma frame with component instances for reusable pieces, create variations, share as team library.</p>
+                <p><strong>Code:</strong> React/Vue/HTML template with content passed as props. Example: `&lt;ResearchTemplate title={...} author={...} body={...} /&gt;`</p>
+                <p><strong>CMS:</strong> Template with content fields. Editors fill in content, structure predetermined.</p>
+            </section>
+
+            <!-- PART VII: APPLICATION TO FAI -->
+            <section class="section" id="fai-choices">
+                <h2>Part VII: Application to FAI</h2>
+                <h3>1. How FAI's Specific Choices Connect to Foundational Concepts</h3>
+
+                <h4>1.1 International Orange: Strategic Color</h4>
+                <p><strong>Why Orange?</strong> Orange sits between red (energy, urgency) and yellow (optimism, light). Orange synthesis: energy + optimism, innovation + excitement.</p>
+                <p><strong>For FAI Specifically:</strong></p>
+                <ul>
+                    <li><strong>Technology associations:</strong> Tech industry loves orange (Google, Amazon, AWS, Alibaba)</li>
+                    <li><strong>Distinctiveness:</strong> Different from typical think tank colors (blue, gray). Stands out.</li>
+                    <li><strong>Optimism:</strong> FAI works on solutions (positive future), not just problems</li>
+                    <li><strong>Visibility:</strong> High saturation orange visible at any size and distance</li>
+                </ul>
+                <p><strong>Positioning:</strong> FAI is not cautious (blue/gray) but forward-looking and energetic (orange).</p>
+
+                <h4>1.2 Schmalfette Grotesk: Typographic Impact</h4>
+                <p><strong>Grotesque Component:</strong> Modern, direct, functional. Aligns with Swiss design heritage. No personality, just clarity. Technical/systematic associations.</p>
+                <p><strong>Ultra-Condensed Component:</strong> High visual impact. Compressed letterforms = visual heaviness. Distinctive (ultra-condensed is rare). Contemporary (experimental typography feels current).</p>
+                <p><strong>Combination Message:</strong> "We are systematic AND innovative/forward-thinking" simultaneously.</p>
+
+                <h4>1.3 IBM Plex Sans: Supporting Typeface</h4>
+                <p><strong>Professional Associations:</strong> IBM credibility = tech credibility.</p>
+                <p><strong>Humanist Grotesque:</strong> Friendly than pure geometric. Readable at body text sizes. Contemporary. Open-sourced (suggests openness/sharing).</p>
+                <p><strong>System Thinking:</strong> Designed as complete family. Named "Plex" (network of systems) = suggests interconnection.</p>
+
+                <h4>1.4 Geometric Illustration System</h4>
+                <p><strong>Why Geometric?</strong> Connects to Bauhaus (geometric abstraction principle), Swiss design (simplification/essential forms), contemporary design (current aesthetic), abstract subjects (AI policy).</p>
+                <p><strong>System Approach:</strong> Limited shape vocabulary creates consistency. Modular composition enables flexibility. Constraints create beauty.</p>
+            </section>
+
+            <section class="section" id="fai-implementation">
+                <h3>2. FAI's Brand Architecture: "Branded House with Flexible Sub-Brands"</h3>
+
+                <h4>2.1 The Choice: Rationale</h4>
+                <p><strong>Branded House Core:</strong> All programs labeled "Foundation for American Innovation" or "FAI". Consistent visual identity. Donor recognition of institutional brand. Efficient use of brand equity.</p>
+                <p><strong>Flexibility for Sub-Brands:</strong> Different programs emphasize different aspects. AI Governance can develop distinctive identity. American Competition can develop distinctive identity. All clearly part of FAI.</p>
+
+                <h4>2.2 Why Not Alternatives?</h4>
+                <p><strong>Not Endorsed Brands:</strong> FAI's brand equity is valuable, should be more prominent. Programs not independent enough to justify endorsed approach.</p>
+                <p><strong>Not House of Brands:</strong> Expensive (each program needs full system). Small organization can't manage multiple brands. Donor confusion. Wastes brand equity.</p>
+                <p><strong>Hybrid is Optimal:</strong> FAI gets institutional credibility. Programs get flexibility to differentiate.</p>
+
+                <h4>2.3 Implementation in Practice</h4>
+                <p><strong>What Stays Constant:</strong> FAI logo/name, International Orange, Schmalfette Grotesk, IBM Plex Sans, geometric illustration vocabulary, professional modernist aesthetic, Swiss design principles.</p>
+                <p><strong>What Can Vary:</strong> Color combinations (orange + navy vs. orange + teal), illustration style (which shapes/colors emphasized), layout variations (data-heavy vs. narrative), supporting graphics (pattern styles).</p>
+
+                <div class="example-box">
+                    <strong>Example: AI Governance Program Sub-Brand</strong>
+                    <p>Must use: FAI logo, International Orange, Schmalfette/IBM Plex<br>
+                    Can customize: Illustration system emphasizing technology/systems (squares, grids), navy blue secondary color, structured data visualization<br>
+                    Result: Clearly FAI, but specialized for policy/technology audience</p>
+                </div>
+            </section>
+
+            <section class="section" id="priorities">
+                <h3>3. What FAI Needs to Complete: Implementation Roadmap</h3>
+                <p class="reading-time">Implementation planning: 5 minutes</p>
+
+                <h4>3.1 Immediate Priorities (Next 3 months) — Phase 1</h4>
+                <ol>
+                    <li><strong>Finalize Color Palette:</strong> Define International Orange precisely (hex, RGB, HSL, LAB). Create tints/shades. Choose secondary color (Navy blue recommended). Define grays (5+ values). Document in all color spaces. Export swatch files. Verify WCAG contrast ratios.</li>
+                    <li><strong>Create Basic Templates:</strong> PowerPoint, Word, Google Docs, email signature, email newsletter. Templates embed correct colors, fonts, styles.</li>
+                    <li><strong>Establish Logo System:</strong> All variations (horizontal, vertical, icon-only, text-only). Minimum sizes, clear space, color versions, usage guidelines. Export all formats.</li>
+                    <li><strong>Document Typography System:</strong> Confirm font choices. Specify weights needed. Provide web font setup. Document pentatonic scale. Show line heights.</li>
+                </ol>
+
+                <h4>3.2 Short-term Priorities (3-6 months) — Phase 2</h4>
+                <ol>
+                    <li><strong>Build Icon System:</strong> 20-30 basic icons (navigation, UI, content, semantic). Consistent stroke weight. Outlined and filled versions. SVG and sprite sheet exports.</li>
+                    <li><strong>Establish Illustration System:</strong> Document shape vocabulary. Create shape library (Figma file). Create 10-15 example illustrations. Establish color rules. Create illustrator guidelines. Provide template files.</li>
+                    <li><strong>Create Brand Guidelines (20-30 pages):</strong> Positioning, personality, logo system, color palette, typography, voice/tone, photography style, illustration style, examples, do's/don'ts, contact info.</li>
+                    <li><strong>Build Digital Presence Spec:</strong> Website color application, standard web page templates, social media specs, email specs, favicon/app icon specs.</li>
+                </ol>
+
+                <h4>3.3 Medium-term Priorities (6-12 months) — Phase 3</h4>
+                <ol>
+                    <li><strong>Develop Living Design System:</strong> Interactive design system (Figma community or Zeroheight). Document all components. Establish design tokens. Create patterns. Provide code examples. Version control.</li>
+                    <li><strong>Establish Governance Process:</strong> Assign design lead. Create review checklist. Set up approval process. Create feedback channels. Schedule quarterly audits.</li>
+                    <li><strong>Build Asset Library:</strong> Centralize all assets (Google Drive, GitHub, or shared server). Organize clearly. Version all assets. Create inventory. Establish maintenance schedule.</li>
+                    <li><strong>Conduct Brand Audit:</strong> Audit existing materials. Identify inconsistencies. Prioritize updates. Plan rollout.</li>
+                </ol>
+
+                <h4>3.4 Long-term Priorities (12+ months) — Phase 4</h4>
+                <ol>
+                    <li><strong>Extend to Sub-Brands:</strong> Allow programs to develop distinctive variations within framework.</li>
+                    <li><strong>Multi-Platform Design System:</strong> iOS components, Android components, print specs, environmental design.</li>
+                    <li><strong>Advanced Asset Management:</strong> Design system platform (Supernova, Zeroheight), automated token generation, component versioning.</li>
+                </ol>
+
+                <h4>3.5 Resource Requirements</h4>
+                <p><strong>Phase 1 (Immediate):</strong> 1 person, 4-6 weeks part-time. Cost: $0 (free tools).</p>
+                <p><strong>Phase 2 (3-6 months):</strong> 1 person ongoing (10 hrs/week). Cost: $0-200.</p>
+                <p><strong>Phase 3 (6-12 months):</strong> 1 designer (part-time) + 1 brand manager (5 hrs/week). Cost: $0 (in-house) or $5-15K (outsourced).</p>
+                <p><strong>Phase 4+ (12+ months):</strong> Ongoing maintenance. Cost: depends on tooling ($0-500+/month).</p>
+
+                <div class="key-takeaways">
+                    <strong>Strategic Recommendations:</strong><br>
+                    • Brand Architecture: Stick with Branded House + Flexible Sub-Brands<br>
+                    • Design Approach: Embrace systematic design (constraints enable creativity)<br>
+                    • Governance: Lightweight but clear (templates beat 40-page guidelines)<br>
+                    • Timeline: Phase implementation (essentials first, advanced later)<br>
+                    • Focus: Tier governance by importance (strict for logo/website, lighter for others)
+                </div>
+            </section>
+
+            <section class="section" id="conclusion">
+                <h2>Conclusion: Building the Complete System</h2>
+                <p>FAI has made excellent foundational choices: International Orange as primary color, Schmalfette Grotesk for impact, IBM Plex Sans for clarity, and geometric illustration system. These choices reflect sophisticated understanding of modernist design principles, color psychology, and systematic thinking.</p>
+
+                <p><strong>FAI is positioned to:</strong></p>
+                <ul>
+                    <li><strong>Signal authority</strong> through systematic, professional approach</li>
+                    <li><strong>Demonstrate innovation</strong> through contemporary choices (ultra-condensed type)</li>
+                    <li><strong>Enable scale</strong> through systematic, component-based thinking</li>
+                    <li><strong>Maintain flexibility</strong> through hybrid brand architecture allowing sub-brand customization</li>
+                </ul>
+
+                <p><strong>Next Steps:</strong> Prioritize Phase 1 deliverables and assign ownership. With focused effort over 3 months, FAI can have functional brand system supporting growth and organizational coherence. The foundational thinking is excellent—now it's implementation and documentation.</p>
+
+                <div class="pull-quote">
+                    "Design should solve problems, not decorate them." — Swiss Design Principle
+                </div>
+            </section>
+
+            <footer>
+                <p><strong>FAI Brand System: Complete Visual & Conceptual Guide</strong></p>
+                <p>All content combined from 4,900-line markdown guide with visual illustrations</p>
+                <p style="margin-top: var(--spacing-sm); font-size: 12px;">Last updated: February 2026 | Created with Swiss design principles and modernist methodology</p>
+            </footer>
+        </main>
+    </div>
+
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.expandable-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+
+            const backToTopBtn = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.section');
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.color-swatch').forEach(swatch => {
+                swatch.addEventListener('click', function() {
+                    const hex = this.nextElementSibling.nextElementSibling.textContent;
+                    navigator.clipboard.writeText(hex);
+                    this.title = 'Copied!';
+                    setTimeout(() => {
+                        this.title = '';
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

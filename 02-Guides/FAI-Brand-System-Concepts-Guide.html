@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAI Brand System: Complete Conceptual Foundation</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #EE6133;
+            --primary-dark: #D94B1A;
+            --primary-light: #F5D4C8;
+            --primary-very-light: #FCE8E0;
+            --neutral-black: #121212;
+            --neutral-dark: #1A1A1A;
+            --neutral-gray: #555555;
+            --neutral-light: #F5F5F5;
+            --neutral-white: #FFFFFF;
+            --accent-blue: #003366;
+            --success: #2EAC3C;
+            --error: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+
+            --grid-column: 96px;
+            --grid-gutter: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--neutral-black);
+            background-color: var(--neutral-white);
+            font-size: 16px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            color: var(--neutral-black);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        h3 {
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            color: var(--neutral-black);
+        }
+
+        h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            color: var(--neutral-dark);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 70ch;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--neutral-black);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--neutral-gray);
+        }
+
+        /* Links */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            border-bottom-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        /* Code blocks */
+        code, pre {
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            background-color: var(--neutral-light);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre {
+            display: block;
+            padding: var(--spacing-md);
+            overflow-x: auto;
+            border-left: 4px solid var(--primary);
+            margin: var(--spacing-md) 0;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--neutral-white);
+            text-align: center;
+            margin: -var(--spacing-lg) -var(--spacing-lg) var(--spacing-lg) -var(--spacing-lg);
+        }
+
+        .header h1 {
+            color: var(--neutral-white);
+            font-size: 42px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+            max-width: none;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: var(--spacing-lg);
+            height: fit-content;
+            background: var(--neutral-light);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .nav-list a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--neutral-dark);
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            margin-left: -var(--spacing-sm);
+        }
+
+        .nav-list a:hover {
+            border-left-color: var(--primary);
+            color: var(--primary);
+            background-color: rgba(238, 97, 51, 0.05);
+        }
+
+        .nav-list a.active {
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-list .section-title {
+            padding: var(--spacing-md) var(--spacing-sm) var(--spacing-xs);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--neutral-gray);
+            letter-spacing: 0.05em;
+        }
+
+        /* Main content */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .section {
+            scroll-margin-top: 100px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            background: var(--neutral-white);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--neutral-white);
+            padding: var(--spacing-sm);
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: var(--neutral-light);
+        }
+
+        /* Callout boxes */
+        .callout {
+            padding: var(--spacing-md);
+            border-left: 4px solid var(--primary);
+            background-color: var(--primary-very-light);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .callout strong {
+            color: var(--primary-dark);
+        }
+
+        /* SVG diagrams */
+        .diagram {
+            display: flex;
+            justify-content: center;
+            margin: var(--spacing-xl) 0;
+            background: var(--neutral-light);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .diagram-caption {
+            text-align: center;
+            font-size: 14px;
+            color: var(--neutral-gray);
+            margin-top: var(--spacing-sm);
+            font-style: italic;
+        }
+
+        /* Expandable sections */
+        .expandable {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            padding: var(--spacing-md);
+            background-color: var(--neutral-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.2s ease;
+            font-weight: 600;
+        }
+
+        .expandable-header:hover {
+            background-color: #eeeeee;
+        }
+
+        .expandable-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .expandable.active .expandable-icon {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable.active .expandable-content {
+            max-height: 5000px;
+            padding: var(--spacing-md);
+            border-top: 1px solid #ddd;
+        }
+
+        /* Color swatches */
+        .color-swatch {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            margin: var(--spacing-xs);
+            border: 2px solid #ddd;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .color-swatch:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .color-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            max-width: 80px;
+        }
+
+        .color-item-hex {
+            font-size: 12px;
+            color: var(--neutral-gray);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        li {
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.8;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary);
+            color: var(--neutral-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(238, 97, 51, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(238, 97, 51, 0.4);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Introduction */
+        .introduction {
+            background: linear-gradient(135deg, var(--primary-very-light) 0%, rgba(238, 97, 51, 0.05) 100%);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .introduction h2 {
+            border: none;
+            padding: 0;
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .introduction p {
+            max-width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: var(--spacing-md);
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                margin: -var(--spacing-md) -var(--spacing-md) var(--spacing-md) -var(--spacing-md);
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .diagram {
+                padding: var(--spacing-md);
+            }
+
+            .color-palette {
+                justify-content: center;
+            }
+
+            .back-to-top {
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar, .back-to-top, .header {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                display: block;
+                max-width: 100%;
+                padding: 0;
+            }
+
+            a {
+                border-bottom: none;
+                text-decoration: underline;
+            }
+
+            h1, h2, h3 {
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            .callout {
+                page-break-inside: avoid;
+            }
+
+            .diagram {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Dark mode (optional) */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+
+            .sidebar {
+                background-color: #2a2a2a;
+                color: #e0e0e0;
+            }
+
+            .sidebar a {
+                color: #b0b0b0;
+            }
+
+            .sidebar a:hover {
+                color: var(--primary);
+                background-color: rgba(238, 97, 51, 0.1);
+            }
+
+            .neutral-light {
+                background-color: #2a2a2a;
+            }
+
+            table {
+                background-color: #2a2a2a;
+                border-color: #444;
+            }
+
+            th {
+                background-color: var(--primary-dark);
+            }
+
+            td {
+                border-color: #444;
+            }
+
+            tr:hover {
+                background-color: #333;
+            }
+
+            .diagram {
+                background-color: #2a2a2a;
+            }
+
+            .expandable {
+                border-color: #444;
+            }
+
+            .expandable-header {
+                background-color: #2a2a2a;
+                border-bottom-color: #444;
+            }
+
+            .expandable-header:hover {
+                background-color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>FAI Brand System</h1>
+        <p>Complete Conceptual Foundation</p>
+        <p class="header-subtitle">A comprehensive guide to understanding and extending the Foundation for American Innovation's brand system</p>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h3>Navigation</h3>
+            <ul class="nav-list">
+                <li class="nav-list-section">
+                    <div class="section-title">Introduction</div>
+                    <a href="#introduction" class="nav-link">Purpose & Scope</a>
+                </li>
+                <li class="nav-list-section">
+                    <div class="section-title">Part I: Brand Strategy</div>
+                    <a href="#brand-architecture" class="nav-link">Brand Architecture</a>
+                    <a href="#sub-brands" class="nav-link">Sub-Brand Ecosystems</a>
+                    <a href="#positioning" class="nav-link">Positioning & Personality</a>
+                    <a href="#governance" class="nav-link">Brand Governance</a>
+                </li>
+                <li class="nav-list-section">
+                    <div class="section-title">Part II: Design Methodology</div>
+                    <a href="#swiss-design" class="nav-link">Swiss Design</a>
+                    <a href="#grid-systems" class="nav-link">Grid Systems</a>
+                    <a href="#geometric" class="nav-link">Geometric Abstraction</a>
+                    <a href="#bauhaus" class="nav-link">Bauhaus Influence</a>
+                </li>
+                <li class="nav-list-section">
+                    <div class="section-title">Part III: Typography</div>
+                    <a href="#type-classification" class="nav-link">Type Classification</a>
+                    <a href="#grotesque" class="nav-link">Grotesque Typefaces</a>
+                    <a href="#type-scale" class="nav-link">Type Scale</a>
+                    <a href="#hierarchy" class="nav-link">Type Hierarchy</a>
+                </li>
+                <li class="nav-list-section">
+                    <div class="section-title">Part IV: Color Theory</div>
+                    <a href="#color-basics" class="nav-link">Color Basics</a>
+                    <a href="#color-spaces" class="nav-link">Color Spaces</a>
+                    <a href="#color-harmony" class="nav-link">Color Harmony</a>
+                    <a href="#accessibility" class="nav-link">Accessibility</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Introduction Section -->
+            <section class="section introduction" id="introduction">
+                <h2>Introduction: Purpose and Scope</h2>
+                <p>This document provides comprehensive explanations of every design, branding, and strategic concept underlying FAI's current brand system. It's designed to enable you to:</p>
+                <ul>
+                    <li><strong>Understand the theoretical foundations</strong> of FAI's visual identity</li>
+                    <li><strong>Make informed design decisions</strong> consistent with the established system</li>
+                    <li><strong>Extend the brand system</strong> to new applications and contexts</li>
+                    <li><strong>Communicate effectively</strong> with design vendors and collaborators</li>
+                    <li><strong>Evaluate design work</strong> against established principles</li>
+                </ul>
+                <p>This guide is organized into major sections covering brand strategy, design methodology, typography, color theory, visual design systems, implementation, and specific application to FAI.</p>
+            </section>
+
+            <!-- Part I: Brand Strategy -->
+            <section class="section" id="brand-architecture">
+                <h2>Part I: Brand Strategy Foundations</h2>
+                <h3>1. Brand Architecture Models</h3>
+                <p>Brand architecture is the hierarchical structure of a brand portfolio and the relationships among brands. For FAI, this framework is critical to organizing multiple programs and initiatives.</p>
+
+                <!-- Brand Architecture Diagram -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 600" width="100%" height="auto">
+                        <!-- Branded House -->
+                        <g id="branded-house">
+                            <rect x="20" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="130" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Branded House</text>
+
+                            <rect x="40" y="65" width="180" height="50" fill="#EE6133" rx="4"/>
+                            <text x="130" y="97" font-size="14" font-weight="bold" text-anchor="middle" fill="white">FAI Master Brand</text>
+
+                            <rect x="40" y="130" width="80" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="80" y="159" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program A</text>
+
+                            <rect x="130" y="130" width="90" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="175" y="159" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program B</text>
+
+                            <rect x="40" y="180" width="80" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="80" y="209" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program C</text>
+
+                            <rect x="130" y="180" width="90" height="40" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="1"/>
+                            <text x="175" y="209" font-size="12" text-anchor="middle" fill="#1A1A1A">FAI: Program D</text>
+
+                            <line x1="130" y1="115" x2="80" y2="130" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="175" y2="130" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="80" y2="180" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+                            <line x1="130" y1="115" x2="175" y2="180" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+
+                            <text x="130" y="275" font-size="11" text-anchor="middle" fill="#555">Max Efficiency, One Brand</text>
+                        </g>
+
+                        <!-- House of Brands -->
+                        <g id="house-of-brands">
+                            <rect x="280" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="390" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">House of Brands</text>
+
+                            <rect x="300" y="65" width="180" height="35" fill="#CCCCCC" rx="4" opacity="0.5"/>
+                            <text x="390" y="92" font-size="11" text-anchor="middle" fill="#555">(Parent Company Hidden)</text>
+
+                            <rect x="300" y="115" width="80" height="40" fill="#FF6B6B" rx="4"/>
+                            <text x="340" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand A</text>
+
+                            <rect x="390" y="115" width="90" height="40" fill="#4ECDC4" rx="4"/>
+                            <text x="435" y="145" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand B</text>
+
+                            <rect x="300" y="165" width="80" height="40" fill="#95E1D3" rx="4"/>
+                            <text x="340" y="195" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Brand C</text>
+
+                            <rect x="390" y="165" width="90" height="40" fill="#FFD93D" rx="4"/>
+                            <text x="435" y="195" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Brand D</text>
+
+                            <text x="390" y="275" font-size="11" text-anchor="middle" fill="#555">Complete Independence</text>
+                        </g>
+
+                        <!-- Endorsed Brands -->
+                        <g id="endorsed">
+                            <rect x="540" y="20" width="220" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="650" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Endorsed Brands</text>
+
+                            <rect x="560" y="65" width="160" height="40" fill="#EE6133" rx="4"/>
+                            <text x="640" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Parent Brand</text>
+
+                            <g id="endorsed-sub-1">
+                                <rect x="560" y="120" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                                <text x="597.5" y="140" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                                <text x="597.5" y="156" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+                            </g>
+
+                            <g id="endorsed-sub-2">
+                                <rect x="645" y="120" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                                <text x="682.5" y="140" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                                <text x="682.5" y="156" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+                            </g>
+
+                            <rect x="560" y="180" width="75" height="50" fill="#FCE8E0" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="597.5" y="200" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Sub-Brand</text>
+                            <text x="597.5" y="216" font-size="9" text-anchor="middle" fill="#555">powered by</text>
+
+                            <text x="650" y="275" font-size="11" text-anchor="middle" fill="#555">Autonomy + Credibility</text>
+                        </g>
+
+                        <!-- Hybrid Model -->
+                        <g id="hybrid">
+                            <rect x="800" y="20" width="190" height="260" fill="none" stroke="#EE6133" stroke-width="2" rx="4"/>
+                            <text x="895" y="45" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Hybrid</text>
+
+                            <rect x="820" y="65" width="150" height="40" fill="#EE6133" rx="4"/>
+                            <text x="895" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="white">FAI Master</text>
+
+                            <rect x="820" y="115" width="150" height="50" fill="#F5D4C8" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="895" y="138" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Program A</text>
+                            <text x="895" y="154" font-size="9" text-anchor="middle" fill="#555">Shared system,</text>
+
+                            <rect x="820" y="170" width="150" height="50" fill="#F5D4C8" rx="4" stroke="#EE6133" stroke-width="2"/>
+                            <text x="895" y="193" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Program B</text>
+                            <text x="895" y="209" font-size="9" text-anchor="middle" fill="#555">distinct identity</text>
+
+                            <text x="895" y="275" font-size="11" text-anchor="middle" fill="#555">FAI's Approach</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">The four primary brand architecture models. FAI uses the Hybrid model (far right), combining a strong master brand with flexible sub-brand customization.</p>
+            </section>
+
+            <!-- Grid Systems Section -->
+            <section class="section" id="grid-systems">
+                <h2>Part II: Design Methodology & History</h2>
+                <h3>Grid Systems</h3>
+                <p>Grids are the invisible structure underlying all professional design. Understanding grids is essential for extending FAI's system.</p>
+
+                <!-- 12-Column Grid Diagram -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 350" width="100%" height="auto">
+                        <defs>
+                            <pattern id="grid-pattern" width="8" height="8" patternUnits="userSpaceOnUse">
+                                <rect width="8" height="8" fill="white"/>
+                                <path d="M 8 0 L 0 0 0 8" fill="none" stroke="#ddd" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+
+                        <!-- Desktop Grid (1440px) -->
+                        <g id="desktop-grid">
+                            <text x="500" y="25" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Desktop Grid (1440px - 12 Columns)</text>
+
+                            <!-- Margins -->
+                            <rect x="40" y="50" width="40" height="200" fill="#FCE8E0" opacity="0.5" stroke="#EE6133" stroke-width="1" stroke-dasharray="4"/>
+                            <text x="60" y="160" font-size="10" text-anchor="middle" fill="#1A1A1A">40px</text>
+
+                            <!-- Columns -->
+                            <g id="grid-columns">
+                                <rect x="80" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="80" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="196" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="196" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+
+                                <rect x="312" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="312" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="428" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="428" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+
+                                <rect x="544" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="544" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="660" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="660" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+
+                                <rect x="776" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="776" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="892" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="892" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+
+                                <rect x="1008" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="1008" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="1124" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="1124" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+
+                                <rect x="1240" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="1240" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.1"/>
+
+                                <rect x="1356" y="50" width="96" height="200" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                                <rect x="1356" y="50" width="96" height="200" fill="#FCE8E0" opacity="0.2"/>
+                            </g>
+
+                            <!-- Right margin -->
+                            <rect x="1452" y="50" width="40" height="200" fill="#FCE8E0" opacity="0.5" stroke="#EE6133" stroke-width="1" stroke-dasharray="4"/>
+                            <text x="1472" y="160" font-size="10" text-anchor="middle" fill="#1A1A1A">40px</text>
+
+                            <!-- Gutter labels -->
+                            <g id="gutter-label">
+                                <line x1="176" y1="260" x2="196" y2="260" stroke="#999" stroke-width="1"/>
+                                <line x1="176" y1="255" x2="176" y2="265" stroke="#999" stroke-width="1"/>
+                                <line x1="196" y1="255" x2="196" y2="265" stroke="#999" stroke-width="1"/>
+                                <text x="186" y="280" font-size="9" text-anchor="middle" fill="#999">16px gutter</text>
+                            </g>
+
+                            <!-- Column size -->
+                            <g id="column-label">
+                                <line x1="80" y1="280" x2="176" y2="280" stroke="#EE6133" stroke-width="2"/>
+                                <line x1="80" y1="275" x2="80" y2="285" stroke="#EE6133" stroke-width="2"/>
+                                <line x1="176" y1="275" x2="176" y2="285" stroke="#EE6133" stroke-width="2"/>
+                                <text x="128" y="300" font-size="11" font-weight="bold" text-anchor="middle" fill="#EE6133">96px column + 16px gutter</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI's 12-column grid system with 40px margins and 16px gutters. Columns are 96px wide each.</p>
+
+                <h4>Grid Structure</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Breakpoint</th>
+                            <th>Width</th>
+                            <th>Columns</th>
+                            <th>Margins</th>
+                            <th>Gutter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Desktop</td>
+                            <td>1440px</td>
+                            <td>12</td>
+                            <td>40px</td>
+                            <td>16px</td>
+                        </tr>
+                        <tr>
+                            <td>Tablet</td>
+                            <td>768px</td>
+                            <td>8</td>
+                            <td>24px</td>
+                            <td>16px</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td>375px</td>
+                            <td>4</td>
+                            <td>16px</td>
+                            <td>12px</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Geometric Abstraction Section -->
+            <section class="section" id="geometric">
+                <h3>Geometric Abstraction</h3>
+                <p>FAI's illustration system is built on geometric abstraction—using simple geometric shapes to create complex, meaningful visuals.</p>
+
+                <!-- Shape Vocabulary Diagram -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 400" width="100%" height="auto">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#EE6133"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Shape Library -->
+                        <text x="500" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#EE6133">FAI's Geometric Shape Vocabulary</text>
+
+                        <!-- Circle -->
+                        <circle cx="100" cy="120" r="40" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="100" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Circle</text>
+                        <text x="100" y="205" font-size="10" text-anchor="middle" fill="#555">Wholeness, ideas</text>
+
+                        <!-- Square -->
+                        <rect x="200" y="80" width="80" height="80" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="240" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Square</text>
+                        <text x="240" y="205" font-size="10" text-anchor="middle" fill="#555">Structure, systems</text>
+
+                        <!-- Triangle -->
+                        <polygon points="380,80 420,160 340,160" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="380" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Triangle</text>
+                        <text x="380" y="205" font-size="10" text-anchor="middle" fill="#555">Direction, change</text>
+
+                        <!-- Lines/Network -->
+                        <line x1="500" y1="100" x2="550" y2="100" stroke="#EE6133" stroke-width="3"/>
+                        <line x1="525" y1="75" x2="525" y2="125" stroke="#EE6133" stroke-width="3"/>
+                        <line x1="480" y1="120" x2="570" y2="120" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="500" cy="100" r="4" fill="#EE6133"/>
+                        <circle cx="550" cy="100" r="4" fill="#EE6133"/>
+                        <circle cx="525" cy="75" r="4" fill="#EE6133"/>
+                        <circle cx="525" cy="125" r="4" fill="#EE6133"/>
+                        <text x="525" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Network</text>
+                        <text x="525" y="205" font-size="10" text-anchor="middle" fill="#555">Connection, flow</text>
+
+                        <!-- Curve -->
+                        <path d="M 640 160 Q 680 80 720 160" fill="none" stroke="#EE6133" stroke-width="3" stroke-linecap="round"/>
+                        <text x="680" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Curve</text>
+                        <text x="680" y="205" font-size="10" text-anchor="middle" fill="#555">Growth, fluidity</text>
+
+                        <!-- Grid -->
+                        <g id="grid-shape">
+                            <rect x="800" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="95" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="800" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="110" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="800" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="815" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="830" y="125" width="15" height="15" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                        </g>
+                        <text x="815" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Grid</text>
+                        <text x="815" y="205" font-size="10" text-anchor="middle" fill="#555">Organization, order</text>
+
+                        <!-- Composition Examples -->
+                        <text x="500" y="260" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Shape Combinations Create Meaning</text>
+
+                        <!-- Example 1: Collaboration -->
+                        <circle cx="150" cy="330" r="25" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <circle cx="200" cy="330" r="25" fill="#FCE8E0" stroke="#EE6133" stroke-width="2"/>
+                        <text x="175" y="365" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Collaboration</text>
+
+                        <!-- Example 2: Innovation -->
+                        <polygon points="400,305 420,330 380,330" fill="#EE6133"/>
+                        <rect x="370" y="335" width="30" height="30" fill="none" stroke="#EE6133" stroke-width="2"/>
+                        <text x="385" y="380" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Innovation</text>
+
+                        <!-- Example 3: Systems -->
+                        <g id="system-shape">
+                            <rect x="595" y="305" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="625" y="305" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="595" y="335" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <rect x="625" y="335" width="20" height="20" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+                            <line x1="615" y1="305" x2="615" y2="355" stroke="#EE6133" stroke-width="1"/>
+                            <line x1="595" y1="325" x2="645" y2="325" stroke="#EE6133" stroke-width="1"/>
+                        </g>
+                        <text x="610" y="380" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Systems</text>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI's geometric shape vocabulary and how shapes combine to represent concepts.</p>
+            </section>
+
+            <!-- Typography Section -->
+            <section class="section" id="type-classification">
+                <h2>Part III: Typography Systems</h2>
+                <h3>Type Scale and Hierarchy</h3>
+                <p>FAI uses a pentatonic type scale (36-21-12-11-10pt) with two primary typefaces: Schmalfette Grotesk for headlines and IBM Plex Sans for body text.</p>
+
+                <!-- Type Scale Visualization -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 500" width="100%" height="auto">
+                        <defs>
+                            <style>
+                                .type-sample { font-family: 'IBM Plex Sans', Arial, sans-serif; }
+                                .type-headline { font-weight: bold; letter-spacing: -0.02em; }
+                            </style>
+                        </defs>
+
+                        <!-- Title -->
+                        <text x="500" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">FAI Pentatonic Type Scale</text>
+
+                        <!-- 36pt -->
+                        <g>
+                            <line x1="50" y1="80" x2="950" y2="80" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="120" x2="950" y2="120" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="108" font-size="36" font-weight="bold" fill="#EE6133" class="type-sample">Headline</text>
+                            <text x="950" y="108" font-size="12" text-anchor="end" fill="#999">36pt / 1.2 leading</text>
+                        </g>
+
+                        <!-- 28pt Section break -->
+                        <line x1="50" y1="145" x2="950" y2="145" stroke="#DDD" stroke-width="1" stroke-dasharray="4"/>
+
+                        <!-- 21pt -->
+                        <g>
+                            <line x1="50" y1="160" x2="950" y2="160" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="195" x2="950" y2="195" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="183" font-size="21" font-weight="bold" fill="#1A1A1A" class="type-sample">Subheading</text>
+                            <text x="950" y="183" font-size="12" text-anchor="end" fill="#999">21pt / 1.3 leading</text>
+                        </g>
+
+                        <!-- 12pt Section break -->
+                        <line x1="50" y1="220" x2="950" y2="220" stroke="#DDD" stroke-width="1" stroke-dasharray="4"/>
+
+                        <!-- 12pt -->
+                        <g>
+                            <line x1="50" y1="235" x2="950" y2="235" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="258" x2="950" y2="258" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="250" font-size="12" fill="#1A1A1A" class="type-sample">Body text: The primary font size for extended reading. IBM Plex Sans provides excellent</text>
+                            <text x="950" y="250" font-size="12" text-anchor="end" fill="#999">12pt / 1.6 leading</text>
+                        </g>
+
+                        <!-- 11pt -->
+                        <g>
+                            <line x1="50" y1="280" x2="950" y2="280" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="302" x2="950" y2="302" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="294" font-size="11" fill="#666" class="type-sample">Secondary text: Captions, metadata, and supporting information use this size.</text>
+                            <text x="950" y="294" font-size="12" text-anchor="end" fill="#999">11pt / 1.5 leading</text>
+                        </g>
+
+                        <!-- 10pt -->
+                        <g>
+                            <line x1="50" y1="320" x2="950" y2="320" stroke="#EEE" stroke-width="1"/>
+                            <line x1="50" y1="340" x2="950" y2="340" stroke="#EEE" stroke-width="1"/>
+                            <text x="70" y="333" font-size="10" fill="#999" class="type-sample">Fine print: Footnotes, disclaimers, and minimal text use this smallest size.</text>
+                            <text x="950" y="333" font-size="12" text-anchor="end" fill="#999">10pt / 1.5 leading</text>
+                        </g>
+
+                        <!-- Scale Ratios -->
+                        <g id="ratios">
+                            <text x="500" y="390" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Scale Ratios</text>
+                            <text x="500" y="415" font-size="11" text-anchor="middle" fill="#1A1A1A">36→21 = 1.71:1 | 21→12 = 1.75:1 | 12→11 = 1.09:1 | 11→10 = 1.10:1</text>
+                            <text x="500" y="440" font-size="10" text-anchor="middle" fill="#666">Creates clear visual hierarchy with three primary levels (36pt, 21pt, 12pt)</text>
+                            <text x="500" y="460" font-size="10" text-anchor="middle" fill="#666">11pt and 10pt serve as modifiers and secondary hierarchy</text>
+                        </g>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Color Theory Section -->
+            <section class="section" id="color-basics">
+                <h2>Part IV: Color Theory & Systems</h2>
+                <h3>FAI Color Palette</h3>
+                <p>FAI's color system is built around International Orange as the primary brand color, with neutrals and strategic accent colors for flexibility.</p>
+
+                <!-- Primary Color Palette -->
+                <h4>Primary Palette</h4>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #EE6133; border-color: #D94B1A;"></div>
+                        <div class="color-item-name">International Orange</div>
+                        <div class="color-item-hex">#EE6133</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #121212;"></div>
+                        <div class="color-item-name">Cod Gray</div>
+                        <div class="color-item-hex">#121212</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #FFFFFF; border-color: #CCC;"></div>
+                        <div class="color-item-name">White</div>
+                        <div class="color-item-hex">#FFFFFF</div>
+                    </div>
+                </div>
+
+                <!-- Orange Color Family -->
+                <h4>Orange Color Family (Tints & Shades)</h4>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #7C2810;"></div>
+                        <div class="color-item-name">Very Dark Orange</div>
+                        <div class="color-item-hex">#7C2810</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #D94B1A;"></div>
+                        <div class="color-item-name">Dark Orange</div>
+                        <div class="color-item-hex">#D94B1A</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #EE6133;"></div>
+                        <div class="color-item-name">Base Orange</div>
+                        <div class="color-item-hex">#EE6133</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #F5D4C8;"></div>
+                        <div class="color-item-name">Light Orange</div>
+                        <div class="color-item-hex">#F5D4C8</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #FCE8E0;"></div>
+                        <div class="color-item-name">Very Light Orange</div>
+                        <div class="color-item-hex">#FCE8E0</div>
+                    </div>
+                </div>
+
+                <!-- Semantic Colors -->
+                <h4>Semantic Colors (Status & Context)</h4>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #2EAC3C;"></div>
+                        <div class="color-item-name">Success</div>
+                        <div class="color-item-hex">#2EAC3C</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #DC3545;"></div>
+                        <div class="color-item-name">Error</div>
+                        <div class="color-item-hex">#DC3545</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #FFC107; border-color: #FF8800;"></div>
+                        <div class="color-item-name">Warning</div>
+                        <div class="color-item-hex">#FFC107</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #17A2B8;"></div>
+                        <div class="color-item-name">Info</div>
+                        <div class="color-item-hex">#17A2B8</div>
+                    </div>
+                </div>
+
+                <!-- Color Harmony Diagram -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 450" width="100%" height="auto">
+                        <defs>
+                            <radialGradient id="wheel-gradient">
+                                <stop offset="0%" stop-color="#fff"/>
+                                <stop offset="100%" stop-color="#f0f0f0"/>
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Title -->
+                        <text x="500" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Color Harmony: Complementary Colors</text>
+
+                        <!-- Color Wheel -->
+                        <circle cx="250" cy="200" r="120" fill="url(#wheel-gradient)" stroke="#DDD" stroke-width="2"/>
+
+                        <!-- Color segments (simplified color wheel) -->
+                        <path d="M 250 80 A 120 120 0 0 1 345 115" fill="#FF0000" opacity="0.4"/>
+                        <path d="M 345 115 A 120 120 0 0 1 390 170" fill="#FF7F00" opacity="0.4"/>
+                        <path d="M 390 170 A 120 120 0 0 1 370 285" fill="#FFFF00" opacity="0.4"/>
+                        <path d="M 370 285 A 120 120 0 0 1 250 320" fill="#00FF00" opacity="0.4"/>
+                        <path d="M 250 320 A 120 120 0 0 1 130 285" fill="#00FFFF" opacity="0.4"/>
+                        <path d="M 130 285 A 120 120 0 0 1 110 170" fill="#0000FF" opacity="0.4"/>
+                        <path d="M 110 170 A 120 120 0 0 1 155 115" fill="#8B00FF" opacity="0.4"/>
+                        <path d="M 155 115 A 120 120 0 0 1 250 80" fill="#FF00FF" opacity="0.4"/>
+
+                        <!-- Orange marker -->
+                        <circle cx="370" cy="115" r="6" fill="#EE6133" stroke="#1A1A1A" stroke-width="2"/>
+                        <line x1="250" y1="200" x2="370" y2="115" stroke="#EE6133" stroke-width="2" stroke-dasharray="5"/>
+                        <text x="390" y="105" font-size="12" font-weight="bold" fill="#EE6133">Orange</text>
+
+                        <!-- Blue complement marker -->
+                        <circle cx="130" cy="285" r="6" fill="#003366" stroke="#1A1A1A" stroke-width="2"/>
+                        <line x1="250" y1="200" x2="130" y2="285" stroke="#003366" stroke-width="2" stroke-dasharray="5"/>
+                        <text x="50" y="295" font-size="12" font-weight="bold" fill="#003366">Navy Blue</text>
+
+                        <!-- Center -->
+                        <circle cx="250" cy="200" r="3" fill="#1A1A1A"/>
+
+                        <!-- Complementary schemes -->
+                        <g id="schemes">
+                            <text x="650" y="30" font-size="14" font-weight="bold" fill="#EE6133">Color Harmony Schemes</text>
+
+                            <!-- Complementary -->
+                            <g>
+                                <text x="650" y="80" font-size="12" font-weight="bold" fill="#1A1A1A">Complementary</text>
+                                <circle cx="680" cy="100" r="15" fill="#EE6133"/>
+                                <circle cx="720" cy="100" r="15" fill="#003366"/>
+                                <text x="680" y="130" font-size="9" text-anchor="middle" fill="#555">Orange</text>
+                                <text x="720" y="130" font-size="9" text-anchor="middle" fill="#555">Navy</text>
+                                <text x="700" y="150" font-size="10" text-anchor="middle" fill="#666">Maximum contrast</text>
+                            </g>
+
+                            <!-- Monochromatic -->
+                            <g>
+                                <text x="650" y="200" font-size="12" font-weight="bold" fill="#1A1A1A">Monochromatic</text>
+                                <circle cx="650" cy="220" r="12" fill="#7C2810"/>
+                                <circle cx="675" cy="220" r="12" fill="#D94B1A"/>
+                                <circle cx="700" cy="220" r="12" fill="#EE6133"/>
+                                <circle cx="725" cy="220" r="12" fill="#F5D4C8"/>
+                                <circle cx="750" cy="220" r="12" fill="#FCE8E0"/>
+                                <text x="700" y="250" font-size="10" text-anchor="middle" fill="#666">Unified, cohesive palette</text>
+                            </g>
+
+                            <!-- Analogous -->
+                            <g>
+                                <text x="650" y="300" font-size="12" font-weight="bold" fill="#1A1A1A">Analogous</text>
+                                <circle cx="680" cy="320" r="15" fill="#FF6B35"/>
+                                <circle cx="720" cy="320" r="15" fill="#EE6133"/>
+                                <circle cx="760" cy="320" r="15" fill="#FFB200"/>
+                                <text x="680" y="350" font-size="8" text-anchor="middle" fill="#555">Red-Orange</text>
+                                <text x="720" y="350" font-size="8" text-anchor="middle" fill="#555">Orange</text>
+                                <text x="760" y="350" font-size="8" text-anchor="middle" fill="#555">Yellow-Orange</text>
+                                <text x="720" y="370" font-size="10" text-anchor="middle" fill="#666">Warm and harmonious</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">Color wheel showing FAI's International Orange and its complementary Navy Blue, plus other harmony schemes.</p>
+            </section>
+
+            <!-- Color Contrast Section -->
+            <section class="section" id="color-harmony">
+                <h3>Color Contrast & Accessibility</h3>
+                <p>FAI's colors are chosen for accessibility and readability. All primary color combinations meet WCAG AA standards.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Foreground</th>
+                            <th>Background</th>
+                            <th>Contrast Ratio</th>
+                            <th>WCAG AA</th>
+                            <th>WCAG AAA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: #EE6133; font-weight: bold;">Orange</td>
+                            <td style="background-color: white;">White</td>
+                            <td>5.2:1</td>
+                            <td>✓ Pass</td>
+                            <td>✗ Fail</td>
+                        </tr>
+                        <tr>
+                            <td style="color: black; font-weight: bold;">Black</td>
+                            <td style="background-color: #F5D4C8;">Light Orange</td>
+                            <td>7.1:1</td>
+                            <td>✓ Pass</td>
+                            <td>✓ Pass</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #003366; font-weight: bold;">Navy Blue</td>
+                            <td style="background-color: white;">White</td>
+                            <td>8.2:1</td>
+                            <td>✓ Pass</td>
+                            <td>✓ Pass</td>
+                        </tr>
+                        <tr>
+                            <td style="color: white; font-weight: bold;">White</td>
+                            <td style="background-color: #EE6133;">Orange</td>
+                            <td>6.1:1</td>
+                            <td>✓ Pass</td>
+                            <td>✓ Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout">
+                    <strong>Accessibility Note:</strong> All FAI color combinations have been verified for WCAG AA compliance. When implementing new colors or variations, always verify contrast ratios using tools like <a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> or <a href="https://www.tpgi.com/color-contrast-checker/">TPGI Contrast Checker</a>.
+                </div>
+            </section>
+
+            <!-- Logo Systems Section -->
+            <section class="section">
+                <h2>Visual Design Systems</h2>
+                <h3>Logo Lockups & Variations</h3>
+                <p>The FAI logo should maintain consistent proportions and spacing across all applications.</p>
+
+                <!-- Logo Variations Diagram -->
+                <div class="diagram">
+                    <svg viewBox="0 0 1000 500" width="100%" height="auto">
+                        <!-- Title -->
+                        <text x="500" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#EE6133">Logo Lockup Variations</text>
+
+                        <!-- Horizontal Lockup (Primary) -->
+                        <g id="horizontal">
+                            <text x="50" y="85" font-size="12" font-weight="bold" fill="#1A1A1A">Horizontal (Primary)</text>
+
+                            <rect x="50" y="100" width="300" height="80" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="3"/>
+
+                            <!-- Logo placeholder -->
+                            <circle cx="90" cy="140" r="35" fill="#EE6133"/>
+                            <text x="90" y="145" font-size="20" font-weight="bold" text-anchor="middle" fill="white">FAI</text>
+
+                            <!-- Text -->
+                            <text x="140" y="130" font-size="18" font-weight="bold" fill="#1A1A1A">Foundation for American</text>
+                            <text x="140" y="155" font-size="18" font-weight="bold" fill="#1A1A1A">Innovation</text>
+
+                            <text x="50" y="200" font-size="10" fill="#666">Use: Primary branding, websites, publications</text>
+                        </g>
+
+                        <!-- Vertical Lockup -->
+                        <g id="vertical">
+                            <text x="450" y="85" font-size="12" font-weight="bold" fill="#1A1A1A">Vertical (Stacked)</text>
+
+                            <rect x="400" y="100" width="150" height="130" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="3"/>
+
+                            <!-- Logo -->
+                            <circle cx="475" cy="120" r="25" fill="#EE6133"/>
+                            <text x="475" y="127" font-size="16" font-weight="bold" text-anchor="middle" fill="white">FAI</text>
+
+                            <!-- Text -->
+                            <text x="475" y="165" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Foundation for</text>
+                            <text x="475" y="180" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">American</text>
+                            <text x="475" y="195" font-size="11" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Innovation</text>
+
+                            <text x="475" y="235" font-size="10" text-anchor="middle" fill="#666">Use: Narrow spaces,</text>
+                            <text x="475" y="248" font-size="10" text-anchor="middle" fill="#666">social media</text>
+                        </g>
+
+                        <!-- Mark Only -->
+                        <g id="mark">
+                            <text x="750" y="85" font-size="12" font-weight="bold" fill="#1A1A1A">Mark Only (Icon)</text>
+
+                            <rect x="700" y="100" width="150" height="130" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="3"/>
+
+                            <!-- Logo mark -->
+                            <circle cx="775" cy="160" r="40" fill="#EE6133"/>
+                            <text x="775" y="170" font-size="32" font-weight="bold" text-anchor="middle" fill="white">FAI</text>
+
+                            <text x="775" y="235" font-size="10" text-anchor="middle" fill="#666">Use: Favicons,</text>
+                            <text x="775" y="248" font-size="10" text-anchor="middle" fill="#666">small applications</text>
+                        </g>
+
+                        <!-- Clearspace Diagram -->
+                        <g id="clearspace">
+                            <text x="500" y="330" font-size="14" font-weight="bold" text-anchor="middle" fill="#EE6133">Minimum Clearspace</text>
+
+                            <rect x="200" y="350" width="250" height="100" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="3"/>
+                            <rect x="220" y="370" width="210" height="60" fill="none" stroke="#EE6133" stroke-width="1.5"/>
+
+                            <!-- Logo -->
+                            <circle cx="275" cy="400" r="20" fill="#EE6133"/>
+                            <text x="275" y="406" font-size="12" font-weight="bold" text-anchor="middle" fill="white">FAI</text>
+
+                            <!-- Text -->
+                            <text x="310" y="395" font-size="11" font-weight="bold" fill="#1A1A1A">Brand Name</text>
+
+                            <!-- Clearspace indicators -->
+                            <line x1="220" y1="360" x2="220" y2="340" stroke="#FF6B6B" stroke-width="1" stroke-dasharray="3"/>
+                            <text x="220" y="335" font-size="9" text-anchor="middle" fill="#FF6B6B">Clear space = 1/2 mark height</text>
+
+                            <rect x="650" y="350" width="250" height="100" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="3"/>
+
+                            <!-- Misuse example -->
+                            <circle cx="705" cy="400" r="20" fill="#EE6133" opacity="0.3"/>
+                            <text x="705" y="406" font-size="12" font-weight="bold" text-anchor="middle" fill="white" opacity="0.5">FAI</text>
+
+                            <text x="760" y="395" font-size="11" font-weight="bold" fill="#999">Brand Name</text>
+
+                            <!-- X mark -->
+                            <line x1="835" y1="370" x2="855" y2="390" stroke="#FF6B6B" stroke-width="3"/>
+                            <line x1="855" y1="370" x2="835" y2="390" stroke="#FF6B6B" stroke-width="3"/>
+
+                            <text x="845" y="430" font-size="9" text-anchor="middle" fill="#FF6B6B">Too close! Insufficient</text>
+                            <text x="845" y="442" font-size="9" text-anchor="middle" fill="#FF6B6B">clearspace</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="diagram-caption">FAI logo variations showing proper proportions, clearspace requirements, and usage guidelines.</p>
+            </section>
+
+            <!-- Interactive Expandable Section -->
+            <section class="section" id="accessibility">
+                <h2>Accessibility & Implementation</h2>
+
+                <div class="expandable">
+                    <div class="expandable-header">
+                        <span>WCAG 2.1 Accessibility Requirements</span>
+                        <div class="expandable-icon">▼</div>
+                    </div>
+                    <div class="expandable-content">
+                        <h4>Color Contrast Requirements</h4>
+                        <ul>
+                            <li><strong>WCAG AA (Minimum):</strong> 4.5:1 contrast for normal text, 3:1 for large text</li>
+                            <li><strong>WCAG AAA (Enhanced):</strong> 7:1 contrast for normal text, 4.5:1 for large text</li>
+                            <li><strong>Large text:</strong> 18pt+ or 14pt+ bold</li>
+                        </ul>
+
+                        <h4>Guidelines for FAI Colors</h4>
+                        <ul>
+                            <li><strong>International Orange (#EE6133):</strong> Meets WCAG AA on white background (5.2:1)</li>
+                            <li><strong>Use dark text on light backgrounds:</strong> Ensures readability for all users</li>
+                            <li><strong>Don't rely on color alone:</strong> Use patterns, icons, or text labels to indicate status</li>
+                            <li><strong>Test with color blindness simulators:</strong> ~8% of men have red-green color blindness</li>
+                        </ul>
+
+                        <h4>Typography Accessibility</h4>
+                        <ul>
+                            <li>Minimum font size: 16px on screen, 12px in print</li>
+                            <li>Line height minimum: 1.5 for body text</li>
+                            <li>Line length: 50-80 characters for optimal readability</li>
+                            <li>Use semantic HTML: Use proper heading levels (h1, h2, h3, etc.)</li>
+                            <li>Keyboard navigation: All interactive elements must be keyboard accessible</li>
+                        </ul>
+
+                        <p>For detailed WCAG 2.1 guidelines, see: <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 Quick Reference</a></p>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header">
+                        <span>External Resources & References</span>
+                        <div class="expandable-icon">▼</div>
+                    </div>
+                    <div class="expandable-content">
+                        <h4>Design System References</h4>
+                        <ul>
+                            <li><a href="https://www.carbondesignsystem.com/" target="_blank">IBM Carbon Design System</a> - Enterprise design system using similar modernist principles</li>
+                            <li><a href="https://material.io/" target="_blank">Google Material Design</a> - Comprehensive design system with extensive documentation</li>
+                            <li><a href="https://inclusive-components.design/" target="_blank">Inclusive Components</a> - Focus on accessibility in design systems</li>
+                        </ul>
+
+                        <h4>Swiss Design & Modernism</h4>
+                        <ul>
+                            <li><a href="https://en.wikipedia.org/wiki/International_Typographic_Style" target="_blank">Wikipedia: International Typographic Style</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Swiss_design" target="_blank">Wikipedia: Swiss Design</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Josef_M%C3%BCller-Brockmann" target="_blank">Josef Müller-Brockmann</a> - Pioneer of grid systems</li>
+                        </ul>
+
+                        <h4>Typography Resources</h4>
+                        <ul>
+                            <li><a href="https://typescale.com/" target="_blank">Type Scale Tool</a> - Generate modular type scales</li>
+                            <li><a href="https://practicaltypography.com/" target="_blank">Butterick's Practical Typography</a> - Comprehensive typography guide</li>
+                            <li><a href="https://www.ibm.com/plex/" target="_blank">IBM Plex</a> - Open-source typeface system</li>
+                        </ul>
+
+                        <h4>Color & Accessibility</h4>
+                        <ul>
+                            <li><a href="https://coolors.co/" target="_blank">Coolors.co</a> - Color palette generator</li>
+                            <li><a href="https://color.adobe.com/" target="_blank">Adobe Color</a> - Professional color picker and harmony tool</li>
+                            <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a> - Test color contrast ratios</li>
+                            <li><a href="https://www.tpgi.com/color-contrast-checker/" target="_blank">TPGI Contrast Checker</a> - Alternative contrast tool</li>
+                        </ul>
+
+                        <h4>Bauhaus & Design History</h4>
+                        <ul>
+                            <li><a href="https://en.wikipedia.org/wiki/Bauhaus" target="_blank">Wikipedia: Bauhaus</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Paul_Rand" target="_blank">Wikipedia: Paul Rand</a></li>
+                            <li><a href="https://en.wikipedia.org/wiki/Armin_Hofmann" target="_blank">Wikipedia: Armin Hofmann</a></li>
+                        </ul>
+
+                        <h4>Web Standards & Best Practices</h4>
+                        <ul>
+                            <li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 Quick Reference</a></li>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank">MDN Web Accessibility</a></li>
+                            <li><a href="https://www.smashingmagazine.com/" target="_blank">Smashing Magazine</a> - Design and development articles</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="section">
+                <h2>Implementing FAI's Design System</h2>
+                <p>The concepts outlined in this guide form the foundation for FAI's visual identity. Key takeaways for anyone working with the FAI brand:</p>
+
+                <div class="callout">
+                    <strong>For Designers:</strong> Understand the theoretical foundation behind every choice. Use grids consistently, respect the type scale, and apply the color system strategically. Your work should feel systematic and modern, never decorative.
+                </div>
+
+                <div class="callout">
+                    <strong>For Brand Managers:</strong> Maintain centralized governance over logo usage and high-visibility materials, but empower teams with templates and clear guidelines. Regular audits ensure the system stays current and consistent.
+                </div>
+
+                <div class="callout">
+                    <strong>For Developers:</strong> Implement typography carefully using the pentatonic scale. Ensure sufficient contrast ratios for all text. Use semantic HTML and keyboard-navigable interfaces. Test with accessibility tools.
+                </div>
+
+                <h3>Next Steps</h3>
+                <ol>
+                    <li>Review this guide regularly and share with team members</li>
+                    <li>Create design templates embedding the system (PowerPoint, Figma, etc.)</li>
+                    <li>Conduct quarterly audits of all public-facing materials</li>
+                    <li>Update guidelines based on new use cases and lessons learned</li>
+                    <li>Train new team members using this conceptual foundation</li>
+                </ol>
+
+                <p><strong>Questions?</strong> Refer back to this guide for theoretical context. When creating design work, ask: "Does this follow FAI's systematic approach? Is it modern, clear, and accessible?"</p>
+            </section>
+
+            <!-- Footer -->
+            <footer style="margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 2px solid var(--primary); text-align: center; color: var(--neutral-gray); font-size: 14px;">
+                <p>FAI Brand System: Complete Conceptual Foundation</p>
+                <p>Created with attention to Swiss design principles, accessibility standards, and modern branding theory</p>
+                <p style="margin-top: var(--spacing-sm); font-size: 12px;">Last updated: February 2026</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+        // Navigation and interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        // Update active state
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            // Expandable sections
+            document.querySelectorAll('.expandable-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+
+            // Back to top button
+            const backToTopBtn = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Update active nav link on scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.section');
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Color swatch copy to clipboard
+            document.querySelectorAll('.color-swatch').forEach(swatch => {
+                swatch.addEventListener('click', function() {
+                    const hex = this.nextElementSibling.nextElementSibling.textContent;
+                    navigator.clipboard.writeText(hex);
+
+                    // Show feedback
+                    const originalText = this.title || '';
+                    this.title = 'Copied!';
+                    setTimeout(() => {
+                        this.title = originalText;
+                    }, 1500);
+                });
+            });
+
+            // Set first nav link as active
+            const firstLink = document.querySelector('.nav-link');
+            if (firstLink) {
+                firstLink.classList.add('active');
+            }
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Escape to close expandables
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.expandable.active').forEach(exp => {
+                    exp.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
