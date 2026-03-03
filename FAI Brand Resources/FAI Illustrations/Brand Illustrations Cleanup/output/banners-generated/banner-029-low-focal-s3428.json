@@ -1,0 +1,235 @@
+{
+  "output_path": "/home/user/FAI-Brand/FAI Brand Resources/FAI Illustrations/Brand Illustrations Cleanup/output/banners-generated/banner-029-low-focal-s3428.svg",
+  "seed": 3428,
+  "energy": "low",
+  "template": "focal",
+  "primary_families": [
+    "open",
+    "mirror",
+    "shape"
+  ],
+  "accent_families": [
+    "ramp",
+    "circle"
+  ],
+  "rotation_pattern": "free",
+  "continuity_strength": 0.7,
+  "dimensions": [
+    1920,
+    960
+  ],
+  "color_bias": null,
+  "cells": [
+    {
+      "col": 0,
+      "row": 0,
+      "tile_id": "shape-01",
+      "tile_filename": "Shape/01.svg",
+      "rotation": 0,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 1,
+      "row": 0,
+      "tile_id": "open-06",
+      "tile_filename": "Open/06.svg",
+      "rotation": 270,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 2,
+      "row": 0,
+      "tile_id": "shape-01",
+      "tile_filename": "Shape/01.svg",
+      "rotation": 0,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 3,
+      "row": 0,
+      "tile_id": "open-03",
+      "tile_filename": "Open/03.svg",
+      "rotation": 180,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 4,
+      "row": 0,
+      "tile_id": "open-02",
+      "tile_filename": "Open/02.svg",
+      "rotation": 90,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 5,
+      "row": 0,
+      "tile_id": "open-06",
+      "tile_filename": "Open/06.svg",
+      "rotation": 180,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 0,
+      "row": 1,
+      "tile_id": "shape-01",
+      "tile_filename": "Shape/01.svg",
+      "rotation": 90,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 1,
+      "row": 1,
+      "tile_id": "open-05",
+      "tile_filename": "Open/05.svg",
+      "rotation": 180,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 2,
+      "row": 1,
+      "tile_id": "open-05",
+      "tile_filename": "Open/05.svg",
+      "rotation": 90,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 3,
+      "row": 1,
+      "tile_id": "open-01",
+      "tile_filename": "Open/01.svg",
+      "rotation": 270,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 4,
+      "row": 1,
+      "tile_id": "open-02",
+      "tile_filename": "Open/02.svg",
+      "rotation": 0,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 5,
+      "row": 1,
+      "tile_id": "shape-01",
+      "tile_filename": "Shape/01.svg",
+      "rotation": 270,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 0,
+      "row": 2,
+      "tile_id": "open-06",
+      "tile_filename": "Open/06.svg",
+      "rotation": 0,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 1,
+      "row": 2,
+      "tile_id": "open-03",
+      "tile_filename": "Open/03.svg",
+      "rotation": 270,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 2,
+      "row": 2,
+      "tile_id": "open-01",
+      "tile_filename": "Open/01.svg",
+      "rotation": 270,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 3,
+      "row": 2,
+      "tile_id": "mirror-04",
+      "tile_filename": "Mirror/04.svg",
+      "rotation": 90,
+      "fg_color": "#121212",
+      "bg_color": "#F3F3F3",
+      "fg_name": "cod_gray",
+      "bg_name": "smoke_white"
+    },
+    {
+      "col": 4,
+      "row": 2,
+      "tile_id": "open-06",
+      "tile_filename": "Open/06.svg",
+      "rotation": 180,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    },
+    {
+      "col": 5,
+      "row": 2,
+      "tile_id": "open-04",
+      "tile_filename": "Open/04.svg",
+      "rotation": 90,
+      "fg_color": "#121212",
+      "bg_color": "#FFFFFF",
+      "fg_name": "cod_gray",
+      "bg_name": "white"
+    }
+  ],
+  "generated_at": "2026-03-03T15:52:22.340961+00:00",
+  "score": 0.6994,
+  "score_detail": {
+    "anchor": 0.8333,
+    "rhythm": 0.4,
+    "direction": 0.8148,
+    "weight": 1.0,
+    "negative": 0.125,
+    "temp": 1.0,
+    "family": 0.9997,
+    "hero": 0.5139
+  },
+  "num_candidates": 50
+}
