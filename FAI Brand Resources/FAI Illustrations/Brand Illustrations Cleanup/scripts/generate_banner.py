@@ -1,28 +1,37 @@
 #!/usr/bin/env python3
 """
-Phase 3: FAI Banner Generator (v3)
+Phase 3: FAI Banner Generator (v4)
 
-Generates on-brand 6×3 grid banner compositions from simplified shape tiles.
+Generates on-brand 6x3 grid banner compositions from simplified shape tiles.
 
-Composition philosophy (v3):
-  - Pick 1–3 shape families per banner (not all 17) — creates coherent motif
-  - Systematic rotation patterns (pinwheel, spiral, mirror, flow) — tilework feel
+v4 changes (composition scoring):
+  - Generate-and-score approach: produces many candidate compositions, scores
+    each on 8 aesthetic axes, keeps the highest-scoring result.
+  - 8-axis scoring system: anchor triangle, shape repetition, directional flow,
+    weight balance, negative space, color temperature zoning, shape family
+    grouping, hero tile placement.
+  - Weight map composition templates for macro-structure guidance.
+  - Score details emitted in JSON sidecar for tuning and validation.
+
+Composition philosophy:
+  - Pick 1-3 shape families per banner (not all 17) -- creates coherent motif
+  - Systematic rotation patterns (pinwheel, spiral, mirror, flow) -- tilework feel
   - Family repetition IS the composition; color variation provides interest
   - Flat SVG output: <g transform="translate scale [rotate]"> instead of nested <svg>
 
 Templates:
-  pinwheel   — one or two families, 4-rotation pinwheel tiling
-  spiral     — one or two families, rotation advances each column
-  mirror     — one or two families, reflected across vertical centre
-  flow       — one family, alternating 0°/180° creates flowing linked shapes
-  focal      — two or three families, heavier tiles cluster at centre
-  scatter    — two or three families, free rotation, light & varied
+  pinwheel   -- one or two families, 4-rotation pinwheel tiling
+  spiral     -- one or two families, rotation advances each column
+  mirror     -- one or two families, reflected across vertical centre
+  flow       -- one family, alternating 0/180 creates flowing linked shapes
+  focal      -- two or three families, heavier tiles cluster at centre
+  scatter    -- two or three families, free rotation, light & varied
 
 Usage:
     python generate_banner.py --energy medium --seed 42
     python generate_banner.py --batch 50
     python generate_banner.py --energy high --template pinwheel --seed 7
-    python generate_banner.py --continuity-strength 0.8 --template flow
+    python generate_banner.py --candidates 100 --energy medium
 """
 
 import argparse
@@ -32,7 +41,7 @@ import math
 import random
 import sys
 from collections import Counter
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -42,7 +51,7 @@ from lxml import etree
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fai_colors import BRAND_COLORS, WARM_COLORS, COOL_COLORS, NEUTRAL_COLORS, HEX_TO_NAME
 
-# ── Constants ─────────────────────────────────────────────
+# -- Constants -------------------------------------------------
 SVG_NS = "http://www.w3.org/2000/svg"
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST   = BASE_DIR / "tiles-manifest-v2.json"
@@ -54,13 +63,142 @@ GRID_ROWS   = 3
 TOTAL_SLOTS = GRID_COLS * GRID_ROWS   # 18
 TILE_VB_W   = 200
 TILE_VB_H   = 200
-CELL_W      = 320   # 1920 / 6  — exact integer
-CELL_H      = 320   # 960 / 3   — exact integer
+CELL_W      = 320   # 1920 / 6  -- exact integer
+CELL_H      = 320   # 960 / 3   -- exact integer
 CELL_SCALE  = CELL_W / TILE_VB_W   # 1.6
 
 ROTATIONS = [0, 90, 180, 270]
 
-# ── Rotation edge source mapping ──────────────────────────
+# -- Composition Scoring Constants -----------------------------
+SCORING_WEIGHTS = {
+    "anchor":    0.10,
+    "rhythm":    0.20,
+    "direction": 0.15,
+    "weight":    0.15,
+    "negative":  0.10,
+    "temp":      0.10,
+    "family":    0.10,
+    "hero":      0.10,
+}
+
+# Rule-of-thirds power positions on the 6x3 grid (col, row)
+POWER_POSITIONS = {(1, 0), (4, 0), (3, 1), (0, 2), (5, 2)}
+
+# Color contrast intensity for anchor/hero scoring
+COLOR_CONTRAST = {
+    "international_orange": 1.0,
+    "celestial_blue":       0.8,
+    "chrome_yellow":        0.7,
+    "cod_gray":             0.4,
+    "timberwolf":           0.2,
+    "smoke_white":          0.15,
+    "white":                0.1,
+}
+
+# Color temperature classification for zoning score
+COLOR_TEMPERATURE = {
+    "international_orange": "warm",
+    "chrome_yellow":        "warm",
+    "celestial_blue":       "cool",
+    "timberwolf":           "cool",
+    "cod_gray":             "neutral",
+    "white":                "neutral",
+    "smoke_white":          "neutral",
+}
+
+# Directional flow compatibility -- horizontal adjacency (A left of B)
+HORIZONTAL_FLOW = {
+    ("right", "right"):     0.9,
+    ("right", "left"):      0.5,
+    ("left",  "right"):     0.2,
+    ("left",  "left"):      0.9,
+    ("right", "neutral"):   0.7,
+    ("neutral", "right"):   0.6,
+    ("left",  "neutral"):   0.7,
+    ("neutral", "left"):    0.6,
+    ("right", "center"):    0.85,
+    ("center", "right"):    0.5,
+    ("left",  "center"):    0.5,
+    ("center", "left"):     0.85,
+    ("neutral", "neutral"): 0.6,
+    ("center", "center"):   0.7,
+    ("outward", "outward"): 0.4,
+    ("center", "outward"):  0.3,
+    ("outward", "center"):  0.3,
+    ("outward", "neutral"): 0.5,
+    ("neutral", "outward"): 0.5,
+    ("up",   "up"):         0.8,
+    ("down", "down"):       0.8,
+    ("up",   "down"):       0.4,
+    ("down", "up"):         0.4,
+    ("up",   "neutral"):    0.65,
+    ("down", "neutral"):    0.65,
+    ("neutral", "up"):      0.65,
+    ("neutral", "down"):    0.65,
+}
+
+# Directional flow -- vertical adjacency (A above B)
+VERTICAL_FLOW = {
+    ("down", "down"):       0.9,
+    ("down", "up"):         0.5,
+    ("up",   "down"):       0.2,
+    ("up",   "up"):         0.9,
+    ("down", "neutral"):    0.7,
+    ("neutral", "down"):    0.6,
+    ("up",   "neutral"):    0.7,
+    ("neutral", "up"):      0.6,
+    ("down", "center"):     0.85,
+    ("center", "down"):     0.5,
+    ("up",   "center"):     0.5,
+    ("center", "up"):       0.85,
+    ("neutral", "neutral"): 0.6,
+    ("center", "center"):   0.7,
+    ("outward", "outward"): 0.4,
+    ("center", "outward"):  0.3,
+    ("outward", "center"):  0.3,
+    ("outward", "neutral"): 0.5,
+    ("neutral", "outward"): 0.5,
+    ("right", "right"):     0.8,
+    ("left",  "left"):      0.8,
+    ("right", "left"):      0.4,
+    ("left",  "right"):     0.4,
+    ("right", "neutral"):   0.65,
+    ("left",  "neutral"):   0.65,
+    ("neutral", "right"):   0.65,
+    ("neutral", "left"):    0.65,
+}
+
+# Weight map composition templates (H=heavy, M=medium, L=light)
+WEIGHT_MAP_TEMPLATES = {
+    "diagonal_sweep": [
+        ["L", "L", "M", "H", "M", "L"],
+        ["L", "M", "H", "M", "L", "L"],
+        ["M", "H", "M", "L", "L", "L"],
+    ],
+    "central_burst": [
+        ["L", "M", "M", "M", "M", "L"],
+        ["M", "H", "H", "H", "H", "M"],
+        ["L", "M", "M", "M", "M", "L"],
+    ],
+    "corner_anchor": [
+        ["H", "H", "M", "L", "L", "L"],
+        ["H", "M", "L", "L", "L", "M"],
+        ["M", "L", "L", "L", "M", "H"],
+    ],
+    "horizontal_banding": [
+        ["H", "H", "H", "H", "H", "H"],
+        ["L", "L", "L", "L", "L", "L"],
+        ["M", "M", "M", "M", "M", "M"],
+    ],
+    "scattered_focal": [
+        ["L", "M", "L", "L", "H", "L"],
+        ["M", "L", "L", "M", "L", "M"],
+        ["L", "L", "H", "L", "M", "L"],
+    ],
+}
+WEIGHT_BAND_RANGES = {"H": (0.5, 1.0), "M": (0.25, 0.55), "L": (0.0, 0.35)}
+
+# -- Rotation edge source mapping ------------------------------
 # After rotation R, new edge P comes from original edge SOURCE[R][P].
 EDGE_ROTATION_SOURCE = {
     0:   {"top": "top",    "right": "right",  "bottom": "bottom", "left": "left"},
@@ -77,19 +215,19 @@ def rotate_edges(edge_type: dict, coverage: dict, rotation: int) -> tuple[dict, 
     return new_type, new_cov
 
 
-# ── Rotation patterns ─────────────────────────────────────
-# Each function (row, col) → rotation index into ROTATIONS [0–3]
+# -- Rotation patterns -----------------------------------------
+# Each function (row, col) -> rotation index into ROTATIONS [0-3]
 ROTATION_PATTERN_FNS: dict[str, Optional[callable]] = {
     "pinwheel":  lambda r, c: (r * 2 + c) % 4,
     "spiral":    lambda r, c: c % 4,
     "mirror":    lambda r, c: c % 4 if c < GRID_COLS // 2 else (GRID_COLS - 1 - c) % 4,
-    "flow":      lambda r, c: (r + c) % 2 * 2,   # alternates 0° / 180°
+    "flow":      lambda r, c: (r + c) % 2 * 2,   # alternates 0 / 180
     "diagonal":  lambda r, c: (r + c) % 4,
     "checker90": lambda r, c: (r + c) % 2 * 2,
     "free":      None,
 }
 
-# ── Template configuration ────────────────────────────────
+# -- Template configuration ------------------------------------
 TEMPLATES = ["pinwheel", "spiral", "mirror", "flow", "focal", "scatter"]
 
 TEMPLATE_CONFIG: dict[str, dict] = {
@@ -117,7 +255,7 @@ COLOR_TOKEN_TO_HEX = BRAND_COLORS.copy()
 TILE_FG_HEX        = "#121212"
 
 
-# ── Data Classes ──────────────────────────────────────────
+# -- Data Classes ----------------------------------------------
 @dataclass
 class RotatedTile:
     tile: dict
@@ -153,15 +291,18 @@ class BannerResult:
     color_bias: Optional[str]
     cells: list
     generated_at: str
+    score: float = 0.0
+    score_detail: dict = field(default_factory=dict)
+    num_candidates: int = 1
 
 
-# ── Manifest ──────────────────────────────────────────────
+# -- Manifest --------------------------------------------------
 def load_manifest(path: Path) -> dict:
     with open(path) as f:
         return json.load(f)
 
 
-# ── Rotated Tile Pool ─────────────────────────────────────
+# -- Rotated Tile Pool -----------------------------------------
 def build_rotated_pool(tiles: list[dict]) -> list[RotatedTile]:
     """All (tile, rotation) candidates, de-duplicating symmetric rotations."""
     pool = []
@@ -187,7 +328,48 @@ def build_rotated_pool(tiles: list[dict]) -> list[RotatedTile]:
     return pool
 
 
-# ── Family focus selection ────────────────────────────────
+# -- Direction Inference ---------------------------------------
+def infer_dominant_direction(tile: dict) -> str:
+    """Infer the dominant visual direction from edge coverage data."""
+    ec = tile.get("edge_coverage", {"top": 0, "right": 0, "bottom": 0, "left": 0})
+    sym = tile.get("symmetry", "none")
+
+    if sym == "both":
+        return "neutral"
+
+    t = ec.get("top", 0)
+    r = ec.get("right", 0)
+    b = ec.get("bottom", 0)
+    le = ec.get("left", 0)
+    total = t + r + b + le
+
+    if total < 0.1:
+        return "neutral"
+
+    if sym == "vertical":
+        v_bias = b - t
+        return ("down" if v_bias > 0 else "up") if abs(v_bias) > 0.15 else "neutral"
+
+    if sym == "horizontal":
+        h_bias = r - le
+        return ("right" if h_bias > 0 else "left") if abs(h_bias) > 0.15 else "neutral"
+
+    h_bias = r - le
+    v_bias = b - t
+
+    if abs(h_bias) < 0.15 and abs(v_bias) < 0.15:
+        if total > 2.5:
+            return "outward"
+        if total > 1.2:
+            return "center"
+        return "neutral"
+
+    if abs(h_bias) >= abs(v_bias):
+        return "right" if h_bias > 0 else "left"
+    return "down" if v_bias > 0 else "up"
+
+
+# -- Family focus selection ------------------------------------
 def pick_family_focus(
     tiles: list[dict],
     template: str,
@@ -197,11 +379,11 @@ def pick_family_focus(
     Select primary and accent shape families for this banner.
 
     For motif templates (pinwheel, spiral, mirror, flow):
-      - 1–2 primary families — nearly all tiles come from these
-      - 0–1 accent families — occasional contrast tile
+      - 1-2 primary families -- nearly all tiles come from these
+      - 0-1 accent families -- occasional contrast tile
 
     For spatial templates (focal, scatter):
-      - 2–4 primary families — broader variety
+      - 2-4 primary families -- broader variety
     """
     cfg = TEMPLATE_CONFIG[template]
     n_primary_lo, n_primary_hi = cfg["primary_fam"]
@@ -254,7 +436,7 @@ def pick_family_focus(
     return primary, accent
 
 
-# ── Tile placement (family-focused, pattern-driven) ───────
+# -- Tile placement (family-focused, pattern-driven) -----------
 def score_candidate(
     cand: RotatedTile,
     placed: dict,
@@ -268,7 +450,7 @@ def score_candidate(
     score = 1.0
     family = cand.tile.get("shape_family", "")
 
-    # ─ Family focus scoring (the key driver) ─
+    # -- Family focus scoring (the key driver) --
     if family in primary_families:
         score += 8.0
     elif family in accent_families:
@@ -276,7 +458,7 @@ def score_candidate(
     else:
         score -= 15.0   # Effectively excluded
 
-    # ─ Rotation scoring ─
+    # -- Rotation scoring --
     if target_rotation is not None:
         # Pattern rotation: strong preference for exact match
         if cand.rotation == target_rotation:
@@ -288,7 +470,7 @@ def score_candidate(
         cnt = rotation_counts.get(cand.rotation, 0)
         score += max(0.0, 2.0 - cnt * 0.5)
 
-    # ─ Edge matching with neighbours (lighter weight than v2 — pattern dominates) ─
+    # -- Edge matching with neighbours (lighter weight -- pattern dominates) --
     if col > 0 and (row, col - 1) in placed:
         left = placed[(row, col - 1)]
         if cand.edges["left"] and left.edges["right"]:
@@ -307,7 +489,7 @@ def score_candidate(
         else:
             score -= 0.3
 
-    # ─ Position weight (only meaningful for focal template) ─
+    # -- Position weight (only meaningful for focal template) --
     tile_weight = cand.tile.get("visual_weight", 0.1)
     score += pos_weight * tile_weight
 
@@ -379,7 +561,7 @@ def scored_tile_placement(
     return result
 
 
-# ── Color Pool ────────────────────────────────────────────
+# -- Color Pool ------------------------------------------------
 def build_color_pool(
     energy: str,
     manifest: dict,
@@ -466,7 +648,7 @@ def _pick_contrasting_bg(fg_name, available, rng):
     return rng.choice(candidates)
 
 
-# ── Adjacency Constraint ──────────────────────────────────
+# -- Adjacency Constraint -------------------------------------
 def apply_adjacency_constraints(
     cells: list[dict],
     rng: random.Random,
@@ -506,7 +688,7 @@ def _has_conflict(grid, r, c):
            (r + 1 < GRID_ROWS and grid[r + 1][c]["fg"] == fg)
 
 
-# ── Color Continuity ──────────────────────────────────────
+# -- Color Continuity ------------------------------------------
 def build_continuity_pairs(
     placement: list[dict],
     continuity_strength: float,
@@ -550,7 +732,240 @@ def apply_color_continuity(
     return color_cells
 
 
-# ── Flat SVG Assembly ─────────────────────────────────────
+# -- Composition Scoring ---------------------------------------
+
+def _get_adjacent_pairs(composition: dict) -> list[tuple]:
+    """Return all horizontally and vertically adjacent cell pairs."""
+    pairs = []
+    for (c, r) in composition:
+        if (c + 1, r) in composition:
+            pairs.append(((c, r), (c + 1, r), "horizontal"))
+        if (c, r + 1) in composition:
+            pairs.append(((c, r), (c, r + 1), "vertical"))
+    return pairs
+
+
+def _get_neighbors(pos: tuple, composition: dict) -> list[tuple]:
+    """Return grid positions of all neighbors of pos that exist in composition."""
+    c, r = pos
+    return [p for p in [(c - 1, r), (c + 1, r), (c, r - 1), (c, r + 1)]
+            if p in composition]
+
+
+def anchor_triangle_score(composition: dict) -> float:
+    """Score: do high-intensity tiles form a well-distributed triangle?"""
+    intensities = []
+    for pos, cell in composition.items():
+        vw = cell["tile"].get("visual_weight", 0.3)
+        cc = COLOR_CONTRAST.get(cell["fg_name"], 0.3)
+        intensities.append((pos, vw * cc))
+
+    intensities.sort(key=lambda x: -x[1])
+    anchors = [pos for pos, _ in intensities[:3]]
+
+    if len(anchors) < 2:
+        return 0.5
+
+    # Check distribution across column thirds and rows
+    col_thirds = [a[0] // 2 for a in anchors]  # 0-1->0, 2-3->1, 4-5->2
+    rows = [a[1] for a in anchors]
+
+    third_spread = len(set(col_thirds)) / min(3, len(anchors))
+    row_spread = len(set(rows)) / min(3, len(anchors))
+
+    # Penalize adjacent anchors
+    adjacency_penalty = 0.0
+    for i, a in enumerate(anchors):
+        for b in anchors[i + 1:]:
+            if abs(a[0] - b[0]) + abs(a[1] - b[1]) <= 1:
+                adjacency_penalty += 0.2
+
+    return max(0.0, min(1.0, (third_spread + row_spread) / 2 - adjacency_penalty))
+
+
+def shape_repetition_score(composition: dict) -> float:
+    """Score: rhythmic shape repetition (3-5 unique shapes ideal for 18 slots)."""
+    shape_counts = Counter(cell["tile"]["id"] for cell in composition.values())
+    n_unique = len(shape_counts)
+    n_singletons = sum(1 for c in shape_counts.values() if c == 1)
+
+    # Ideal: 3-5 unique shapes
+    if 3 <= n_unique <= 5:
+        unique_score = 1.0
+    else:
+        unique_score = max(0.0, 1.0 - abs(n_unique - 4) * 0.15)
+
+    # Penalize excessive singletons
+    singleton_penalty = max(0, (n_singletons - 2) * 0.2)
+
+    return max(0.0, unique_score - singleton_penalty)
+
+
+def directional_flow_score(composition: dict) -> float:
+    """Score: directional sympathy between adjacent tiles."""
+    pairs = _get_adjacent_pairs(composition)
+    if not pairs:
+        return 0.5
+
+    scores = []
+    for pos_a, pos_b, axis in pairs:
+        dir_a = infer_dominant_direction(composition[pos_a]["tile"])
+        dir_b = infer_dominant_direction(composition[pos_b]["tile"])
+        lookup = HORIZONTAL_FLOW if axis == "horizontal" else VERTICAL_FLOW
+        pair_score = lookup.get((dir_a, dir_b), 0.5)
+        scores.append(pair_score)
+
+    return sum(scores) / len(scores)
+
+
+def weight_balance_score(composition: dict) -> float:
+    """Score: even distribution of visual weight across rows and halves."""
+    row_weights = [0.0] * GRID_ROWS
+    left_weight, right_weight = 0.0, 0.0
+
+    for (c, r), cell in composition.items():
+        vw = cell["tile"].get("visual_weight", 0.3)
+        row_weights[r] += vw
+        if c < GRID_COLS // 2:
+            left_weight += vw
+        else:
+            right_weight += vw
+
+    max_row = max(row_weights)
+    min_row = min(row_weights)
+    row_ratio = min_row / max_row if max_row > 0 else 1.0
+    row_score = min(1.0, row_ratio / 0.6)
+
+    total = left_weight + right_weight
+    if total > 0:
+        lr_ratio = min(left_weight, right_weight) / max(left_weight, right_weight)
+        lr_score = min(1.0, lr_ratio / 0.6)
+    else:
+        lr_score = 1.0
+
+    return (row_score + lr_score) / 2
+
+
+def negative_space_score(composition: dict) -> float:
+    """Score: proportion and clustering of light/negative-space tiles."""
+    light_positions = [
+        pos for pos, cell in composition.items()
+        if cell["tile"].get("visual_weight", 0.3) < 0.35
+    ]
+    n_light = len(light_positions)
+
+    if 4 <= n_light <= 6:
+        count_score = 1.0
+    elif 3 <= n_light <= 7:
+        count_score = 0.7
+    else:
+        count_score = max(0.0, 0.4 - abs(n_light - 5) * 0.1)
+
+    if len(light_positions) >= 2:
+        distances = []
+        for i, a in enumerate(light_positions):
+            for b in light_positions[i + 1:]:
+                distances.append(abs(a[0] - b[0]) + abs(a[1] - b[1]))
+        avg_dist = sum(distances) / len(distances)
+        cluster_score = max(0.0, 1.0 - (avg_dist / 4.0))
+    else:
+        cluster_score = 0.5
+
+    return (count_score + cluster_score) / 2
+
+
+def color_temperature_score(composition: dict) -> float:
+    """Score: spatial coherence of warm/cool color zones (not salt-and-pepper)."""
+    warm_positions = [
+        pos for pos, cell in composition.items()
+        if COLOR_TEMPERATURE.get(cell["fg_name"]) == "warm"
+    ]
+    cool_positions = [
+        pos for pos, cell in composition.items()
+        if COLOR_TEMPERATURE.get(cell["fg_name"]) == "cool"
+    ]
+
+    def avg_internal_distance(positions):
+        if len(positions) < 2:
+            return 0.0
+        dists = []
+        for i, a in enumerate(positions):
+            for b in positions[i + 1:]:
+                dists.append(abs(a[0] - b[0]) + abs(a[1] - b[1]))
+        return sum(dists) / len(dists)
+
+    warm_cohesion = max(0.0, 1.0 - avg_internal_distance(warm_positions) / 4.0)
+    cool_cohesion = max(0.0, 1.0 - avg_internal_distance(cool_positions) / 4.0)
+
+    return (warm_cohesion + cool_cohesion) / 2
+
+
+def shape_family_grouping_score(composition: dict) -> float:
+    """Score: same-family tiles form loose clusters (~55% same-family adjacency)."""
+    pairs = _get_adjacent_pairs(composition)
+    if not pairs:
+        return 0.5
+
+    same_family = sum(
+        1 for a, b, _ in pairs
+        if composition[a]["tile"].get("shape_family") == composition[b]["tile"].get("shape_family")
+    )
+    ratio = same_family / len(pairs)
+
+    # Bell curve centered on 0.55
+    return max(0.0, 1.0 - ((ratio - 0.55) ** 2) * 10)
+
+
+def hero_tile_score(composition: dict) -> float:
+    """Score: one clear focal point in a strong position with neighbor contrast."""
+    hero_pos = max(
+        composition.keys(),
+        key=lambda p: (
+            composition[p]["fg_name"] == "international_orange",
+            composition[p]["tile"].get("visual_weight", 0.0),
+        ),
+    )
+    hero = composition[hero_pos]
+
+    pos_score = 1.0 if hero_pos in POWER_POSITIONS else 0.5
+
+    neighbors = _get_neighbors(hero_pos, composition)
+    contrast_scores = []
+    for n_pos in neighbors:
+        neighbor = composition[n_pos]
+        weight_diff = abs(
+            hero["tile"].get("visual_weight", 0.3) -
+            neighbor["tile"].get("visual_weight", 0.3)
+        )
+        color_diff = 1.0 if neighbor["fg_name"] != hero["fg_name"] else 0.0
+        contrast_scores.append((weight_diff + color_diff) / 2)
+
+    neighbor_score = (sum(contrast_scores) / len(contrast_scores)) if contrast_scores else 0.5
+
+    return (pos_score + neighbor_score) / 2
+
+
+def score_composition(composition: dict) -> tuple[float, dict]:
+    """
+    Score a candidate composition on 8 aesthetic axes.
+    Returns (total_score, detail_dict).
+    """
+    detail = {
+        "anchor":    anchor_triangle_score(composition),
+        "rhythm":    shape_repetition_score(composition),
+        "direction": directional_flow_score(composition),
+        "weight":    weight_balance_score(composition),
+        "negative":  negative_space_score(composition),
+        "temp":      color_temperature_score(composition),
+        "family":    shape_family_grouping_score(composition),
+        "hero":      hero_tile_score(composition),
+    }
+
+    total = sum(SCORING_WEIGHTS[k] * v for k, v in detail.items())
+    return total, detail
+
+
+# -- Flat SVG Assembly -----------------------------------------
 def parse_tile_svg(path: Path) -> etree._Element:
     return etree.parse(str(path), etree.XMLParser(remove_comments=True)).getroot()
 
@@ -564,12 +979,12 @@ def assemble_banner_svg(
     Compose a flat banner SVG (no nested <svg> elements):
 
       For each cell:
-        <rect x y width height fill=bg/>          ← solid background
+        <rect x y width height fill=bg/>          -- solid background
         <g transform="translate(x,y) scale(1.6) [rotate(N,100,100)]">
-          <path d="..." fill=fg/>                  ← tile shape
+          <path d="..." fill=fg/>                  -- tile shape
         </g>
 
-    The scale(1.6) maps tile viewBox [0,200] → cell [0,320].
+    The scale(1.6) maps tile viewBox [0,200] -> cell [0,320].
     Rotation is around tile centre (100,100) in tile space.
     """
     banner_w, banner_h = dimensions
@@ -611,7 +1026,7 @@ def assemble_banner_svg(
         if path_elem is None:
             continue   # empty tile (Clear)
 
-        # Build flat transform: translate → scale → [rotate in tile space]
+        # Build flat transform: translate -> scale -> [rotate in tile space]
         scale = CELL_SCALE   # 1.6
         if cell.rotation != 0:
             transform = f"translate({x},{y}) scale({scale}) rotate({cell.rotation},100,100)"
@@ -626,61 +1041,65 @@ def assemble_banner_svg(
     return root
 
 
-# ── Core Generator ────────────────────────────────────────
-def generate_banner(
-    manifest_path: Path = DEFAULT_MANIFEST,
-    tiles_dir: Path = DEFAULT_TILES_DIR,
-    energy: str = "medium",
-    seed: Optional[int] = None,
-    dimensions: tuple[int, int] = (1920, 960),
-    color_bias: Optional[str] = None,
-    continuity_strength: float = 0.7,
-    template: Optional[str] = None,
-) -> tuple[BannerResult, etree._Element]:
-    manifest = load_manifest(manifest_path)
-
-    if seed is None:
-        seed = random.randint(0, 2 ** 31 - 1)
-    rng = random.Random(seed)
-
+# -- Candidate Generation (data only) -------------------------
+def _generate_candidate(
+    manifest: dict,
+    rotated_pool: list[RotatedTile],
+    energy: str,
+    rng: random.Random,
+    color_bias: Optional[str],
+    continuity_strength: float,
+    template: Optional[str],
+) -> dict:
+    """Generate a single candidate composition (data only, no SVG rendering)."""
     # 1. Choose template
     if template:
         chosen_template = template
     else:
         weights_map = TEMPLATE_ENERGY_WEIGHTS[energy]
-        tmps  = [t for t in TEMPLATES if t in weights_map]
-        wts   = [weights_map[t] for t in tmps]
+        tmps = [t for t in TEMPLATES if t in weights_map]
+        wts = [weights_map[t] for t in tmps]
         chosen_template = rng.choices(tmps, weights=wts, k=1)[0]
 
     rotation_pattern = TEMPLATE_CONFIG[chosen_template]["rotation"]
 
-    # 2. Build rotated pool
-    rotated_pool = build_rotated_pool(manifest["tiles"])
+    # 2. Pick family focus
+    primary_families, accent_families = pick_family_focus(
+        manifest["tiles"], chosen_template, rng
+    )
 
-    # 3. Pick family focus
-    primary_families, accent_families = pick_family_focus(manifest["tiles"], chosen_template, rng)
-
-    # 4. Place tiles
-    placement = scored_tile_placement(rotated_pool, chosen_template, primary_families, accent_families, rng)
+    # 3. Place tiles
+    placement = scored_tile_placement(
+        rotated_pool, chosen_template, primary_families, accent_families, rng
+    )
     placement_sorted = sorted(placement, key=lambda p: p["row"] * GRID_COLS + p["col"])
-    placement_map    = {(p["row"], p["col"]): p for p in placement_sorted}
+    placement_map = {(p["row"], p["col"]): p for p in placement_sorted}
 
-    # 5. Build color pool and run adjacency solver
+    # 4. Build color pool and run adjacency solver
     color_cells = build_color_pool(energy, manifest, rng, color_bias)
     color_cells = apply_adjacency_constraints(color_cells, rng)
 
-    # 6. Apply continuity (after positions are fixed)
+    # 5. Apply continuity (after positions are fixed)
     cont_pairs = build_continuity_pairs(placement_sorted, continuity_strength, rng)
     if cont_pairs:
         color_cells = apply_color_continuity(color_cells, cont_pairs, rng)
 
-    # 7. Build CellAssignment list
-    cells = []
+    # 6. Build unified composition dict for scoring and CellAssignment list
+    composition = {}
+    cell_assignments = []
     for item in color_cells:
         r, c = item["_row"], item["_col"]
         p = placement_map[(r, c)]
         fg_name, bg_name = item["fg"], item["bg"]
-        cells.append(CellAssignment(
+
+        composition[(c, r)] = {
+            "tile": p["tile"],
+            "rotation": p["rotation"],
+            "fg_name": fg_name,
+            "bg_name": bg_name,
+        }
+
+        cell_assignments.append(CellAssignment(
             col=c, row=r,
             tile_id=p["tile"]["id"],
             tile_filename=p["tile"]["filename"],
@@ -691,27 +1110,84 @@ def generate_banner(
             bg_name=bg_name,
         ))
 
-    # 8. Assemble flat SVG
-    banner_root = assemble_banner_svg(cells, tiles_dir, dimensions)
+    return {
+        "template": chosen_template,
+        "rotation_pattern": rotation_pattern,
+        "primary_families": primary_families,
+        "accent_families": accent_families,
+        "continuity_strength": continuity_strength,
+        "composition": composition,
+        "cell_assignments": cell_assignments,
+    }
+
+
+# -- Core Generator --------------------------------------------
+def generate_banner(
+    manifest_path: Path = DEFAULT_MANIFEST,
+    tiles_dir: Path = DEFAULT_TILES_DIR,
+    energy: str = "medium",
+    seed: Optional[int] = None,
+    dimensions: tuple[int, int] = (1920, 960),
+    color_bias: Optional[str] = None,
+    continuity_strength: float = 0.7,
+    template: Optional[str] = None,
+    num_candidates: int = 50,
+) -> tuple[BannerResult, etree._Element]:
+    manifest = load_manifest(manifest_path)
+
+    if seed is None:
+        seed = random.randint(0, 2 ** 31 - 1)
+
+    # Build rotated pool once (shared across all candidates)
+    rotated_pool = build_rotated_pool(manifest["tiles"])
+
+    # Generate and score candidates
+    best = None
+    best_score = -1.0
+    best_detail = {}
+    best_seed = seed
+
+    for i in range(num_candidates):
+        candidate_seed = seed + i
+        rng = random.Random(candidate_seed)
+
+        candidate = _generate_candidate(
+            manifest, rotated_pool, energy, rng,
+            color_bias, continuity_strength, template,
+        )
+
+        total, detail = score_composition(candidate["composition"])
+
+        if total > best_score:
+            best_score = total
+            best_detail = detail
+            best = candidate
+            best_seed = candidate_seed
+
+    # Assemble the best candidate into SVG
+    banner_root = assemble_banner_svg(best["cell_assignments"], tiles_dir, dimensions)
 
     result = BannerResult(
         output_path=None,
-        seed=seed,
+        seed=best_seed,
         energy=energy,
-        template=chosen_template,
-        primary_families=primary_families,
-        accent_families=accent_families,
-        rotation_pattern=rotation_pattern,
-        continuity_strength=continuity_strength,
+        template=best["template"],
+        primary_families=best["primary_families"],
+        accent_families=best["accent_families"],
+        rotation_pattern=best["rotation_pattern"],
+        continuity_strength=best["continuity_strength"],
         dimensions=dimensions,
         color_bias=color_bias,
-        cells=[asdict(c) for c in cells],
+        cells=[asdict(c) for c in best["cell_assignments"]],
         generated_at=datetime.now(timezone.utc).isoformat(),
+        score=round(best_score, 4),
+        score_detail={k: round(v, 4) for k, v in best_detail.items()},
+        num_candidates=num_candidates,
     )
     return result, banner_root
 
 
-# ── Batch Generation ──────────────────────────────────────
+# -- Batch Generation ------------------------------------------
 def generate_batch(
     n: int = 20,
     manifest_path: Path = DEFAULT_MANIFEST,
@@ -722,6 +1198,7 @@ def generate_batch(
     starting_seed: Optional[int] = None,
     continuity_strength: float = 0.7,
     template: Optional[str] = None,
+    num_candidates: int = 20,
 ) -> list[BannerResult]:
     if energy_mix is None:
         energy_mix = {"low": 0.3, "medium": 0.5, "high": 0.2}
@@ -737,7 +1214,7 @@ def generate_batch(
 
     results = []
     for i, energy_level in enumerate(allocations):
-        seed = (starting_seed or 1000) + i
+        seed = (starting_seed or 1000) + i * num_candidates
         result, banner_root = generate_banner(
             manifest_path=manifest_path,
             tiles_dir=tiles_dir,
@@ -746,8 +1223,9 @@ def generate_batch(
             dimensions=dimensions,
             continuity_strength=continuity_strength,
             template=template,
+            num_candidates=num_candidates,
         )
-        fname = f"banner-{i+1:03d}-{energy_level}-{result.template}-s{seed}"
+        fname = f"banner-{i+1:03d}-{energy_level}-{result.template}-s{result.seed}"
         svg_path = output_dir / f"{fname}.svg"
         svg_path.write_bytes(etree.tostring(banner_root, xml_declaration=True, encoding="UTF-8", pretty_print=True))
         result.output_path = str(svg_path)
@@ -758,14 +1236,14 @@ def generate_batch(
 
         results.append(result)
         if (i + 1) % 10 == 0 or (i + 1) == n:
-            print(f"  Generated {i+1}/{n}")
+            print(f"  Generated {i+1}/{n} (score: {result.score:.3f})")
 
     return results
 
 
-# ── Main ──────────────────────────────────────────────────
+# -- Main ------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description="FAI Banner Generator v3")
+    parser = argparse.ArgumentParser(description="FAI Banner Generator v4")
     parser.add_argument("--energy", choices=["low", "medium", "high"], default="medium")
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--dimensions", type=int, nargs=2, default=[1920, 960])
@@ -773,6 +1251,8 @@ def main():
     parser.add_argument("--output", type=str, default=None)
     parser.add_argument("--template", choices=TEMPLATES, default=None)
     parser.add_argument("--continuity-strength", type=float, default=0.7)
+    parser.add_argument("--candidates", type=int, default=50,
+                        help="Number of candidates to generate and score (default: 50)")
 
     parser.add_argument("--batch", type=int, default=None)
     parser.add_argument("--energy-mix", type=str, default=None)
@@ -786,7 +1266,7 @@ def main():
 
     if args.batch:
         energy_mix = json.loads(args.energy_mix) if args.energy_mix else None
-        print(f"Generating {args.batch} banners...")
+        print(f"Generating {args.batch} banners ({args.candidates} candidates each)...")
         results = generate_batch(
             n=args.batch,
             manifest_path=args.manifest,
@@ -797,16 +1277,21 @@ def main():
             starting_seed=args.starting_seed,
             continuity_strength=args.continuity_strength,
             template=args.template,
+            num_candidates=args.candidates,
         )
-        print(f"\nBatch complete → {args.output_dir}")
+        print(f"\nBatch complete -> {args.output_dir}")
         tmpl_counts = Counter(r.template for r in results)
         fam_counts  = Counter(f for r in results for f in r.primary_families)
+        scores = [r.score for r in results]
+        print(f"Score range: {min(scores):.3f} - {max(scores):.3f} "
+              f"(mean {sum(scores)/len(scores):.3f})")
         for t, c in sorted(tmpl_counts.items(), key=lambda x: -x[1]):
             print(f"  {t}: {c}")
         print("Primary families:", dict(sorted(fam_counts.items(), key=lambda x: -x[1])[:8]))
 
     else:
-        print(f"Generating banner (energy={args.energy}, seed={args.seed})...")
+        print(f"Generating banner (energy={args.energy}, seed={args.seed}, "
+              f"candidates={args.candidates})...")
         result, banner_root = generate_banner(
             manifest_path=args.manifest,
             tiles_dir=args.tiles_dir,
@@ -816,6 +1301,7 @@ def main():
             color_bias=args.color_bias,
             continuity_strength=args.continuity_strength,
             template=args.template,
+            num_candidates=args.candidates,
         )
 
         out_dir = args.output_dir
@@ -831,6 +1317,10 @@ def main():
         print(f"Template:  {result.template}  ({result.rotation_pattern} rotation)")
         print(f"Families:  primary={result.primary_families}  accent={result.accent_families}")
         print(f"Seed:      {result.seed}")
+        print(f"Score:     {result.score:.4f}  (best of {result.num_candidates} candidates)")
+        for axis, val in sorted(result.score_detail.items()):
+            w = SCORING_WEIGHTS[axis]
+            print(f"  {axis:12s} {val:.3f}  (x{w:.2f} = {val*w:.3f})")
         rot_counts = Counter(c["rotation"] for c in result.cells)
         print(f"Rotations: {dict(sorted(rot_counts.items()))}")
         fg_counts  = Counter(c["fg_name"] for c in result.cells)
